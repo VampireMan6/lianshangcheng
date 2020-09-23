@@ -1,0 +1,16 @@
+.nav-cont{width: 100%;padding-top: 12px;padding-bottom: 20px;}
+.nav-cont .nav-name{position: relative;color: #666666;font-size: 14px;}
+.nav-cont .nav-name.active{color: #221915;font-weight: bold;}
+.nav-cont .nav-name.active::after{position: absolute;bottom: -5px;left: 0px;height: 2px;width: 100%;background-color: #1A2B5A;content: "";}
+.cont-list{width: 100%;border-radius: 6px;box-shadow: 0px 2px 6px #E9E8E8;padding: 16px;margin-bottom: 15px;}
+.cont-list .store-name{width: 100%;}
+.cont-list .store-name image{width: 15px;}
+.cont-list .cont-data{width: 100%;}
+.cont-list .cont-data image{width: 80px;height: 80px;}
+.cont-list .cont-data .text-data{width: calc(100% - 200px);}
+.cont-list .cont-data .text-data .name{max-height: 60px;display: -webkit-box;-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 3;text-overflow: ellipsis;word-break: break-all;}
+.cont-list .cont-data .price-data{width: 100px;}
+.cont-list .btn-cont{width: 100%;}
+.cont-list .btn-cont .order-btn{font-size: 12px;line-height: 25px;width: 80px;text-align: center;border-radius: 20px;margin: 0px;margin-left: 15px;}
+.cont-list .btn-cont .order-btn.btn1{border: 1px solid #CCCCCC;color: #999999;}
+.cont-list .btn-cont .order-btn.btn2{color: #FFFFFF;border: 0px solid #E52321;background-color: #1A2B5A;}
