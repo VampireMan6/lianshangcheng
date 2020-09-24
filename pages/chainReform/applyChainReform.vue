@@ -85,6 +85,15 @@
 						<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
 					</view>
 				</view>
+				<view class="cont-list flex-center">
+					<text class="title one-row mr-20">还款日：</text>
+					<picker @change="select3" style="flex: 1" :value="index3" :range="dataList3">
+					  <view class="uni-input" style="width: 100%;">{{dataText3}}</view>
+					</picker>
+					<!-- <view class="flex-1">
+						<input type="number" v-model="day" placeholder="请填写每月几号" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
+					</view> -->
+				</view>
 			</view>
 		</scroll-view>
 		<view style="padding: 30rpx 30rpx 0;box-sizing: border-box;">
@@ -134,9 +143,9 @@
 			return {
 				status: false,
 				scrollHeight: 0,
-				name:"",
+				name: '',
 				IdNumber: '',
-				mobile:"",
+				mobile: '',
 				region: {label: "请点击选择地址",value:[],cityCode:""},
 				address:"",
 				chainReformName: "",
@@ -148,12 +157,15 @@
 				dataText2: '请点击选择链改期限',
 				dataList2: ['12','24','36'],
 				index2: 0,
+				dataText3: '请点击选择每月还款日期',
+				dataList3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+				index3: 0,
 				sex: 1,
 				cityPickerValue: [21, 0, 2],
 				province: '',
 				city: '',
 				county: '',
-				id:"",
+				id: ''
 			}
 		},
 		methods: {
@@ -164,6 +176,10 @@
 			select2(e) {
 			  this.index2 = e.target.value;
 				this.dataText2 = this.dataList2[this.index2];
+			},
+			select3(e) {
+			  this.index3 = e.target.value;
+				this.dataText3 = this.dataList3[this.index3];
 			},
 			radioChange:function(e){
 				this.sex = e.target.value;
@@ -222,6 +238,9 @@
 				if(!this.chainReformNumberMonth.trim()) {
 					return this.app._toast('请输入链改月费')
 				};
+				if(!this.dataList3 == '请点击选择每月还款日期') {
+					return this.app._toast('请选择还款日期')
+				};
 				if(!this.status) {
 					this.status = true;
 					this.even();
@@ -241,7 +260,8 @@
 					month_fee: parseFloat(self.chainReformNumberMonth),
 					service_fee: parseFloat(self.serviceCharge),
 					is_once_pay: parseFloat(self.sex),
-					margin: parseFloat(self.margin)
+					margin: parseFloat(self.margin),
+					day: self.dataText3
 				};
 				uni.showNavigationBarLoading();
 				uni.request({

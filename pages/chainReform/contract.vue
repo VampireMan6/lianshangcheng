@@ -75,11 +75,14 @@
 						if (res.data.code == 200) {
 							self.app._toast(res.data.message);
 							self.status = false;
-							setTimeout(()=> {
-								uni.switchTab({
-									url: '/pages/chainReform/chainReform'
-								})
-							},2000)
+							uni.navigateTo({
+								url: '/pages/chainReform/applyChainReform1'
+							})
+							// setTimeout(()=> {
+							// 	uni.switchTab({
+							// 		url: '/pages/chainReform/chainReform'
+							// 	})
+							// },2000)
 						}else{
 							self.app._toast(res.data.message);
 						};

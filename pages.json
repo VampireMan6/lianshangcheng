@@ -494,6 +494,12 @@
 				"navigationBarTitleText": "申请链改"
 			}
 		},
+		{//合同摘要页
+			"path": "pages/chainReform/applyChainReform1",
+			"style": {
+				"navigationBarTitleText": "合同摘要"
+			}
+		},
 		{// 链改详情
 			"path": "pages/chainReform/chainReformDetail",
 			"style": {
