@@ -1,4 +1,4 @@
-var service = false;
+var service = true;
 // https://api.atbds.com/api/documentation 接口地址
 
 // var api_service="http://qsc-api.zgf.8kpay.com:10100";

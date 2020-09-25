@@ -1,55 +1,58 @@
 <template>
 	<view class="box pl-15 pr-15 pt-20">
-		<view class="base-data bc-white">
-			<view class="left flex-row flex-j-between" style="margin-bottom: 16rpx;">
-				<view>链改名称 : <text class="m-l-4">名称</text></view>
-				<view>链改类型 : <text class="m-l-4">名称</text></view>
-			</view>
-			<view class="right flex-row flex-j-between">
-				<view>链改金额 : <text class="m-l-4">999</text></view>
-				<view>期限 : <text class="m-l-4">36</text></view>
-				<view>月费 : <text class="m-l-4">9999</text></view>
-			</view>
-		</view>
-<!-- 		<view class="plate-title flex-center flex-j-between mt-20 mb-20 bc-white">
-			<text class="title font-16 font-w-b" v-text="type==2?'分享列表':'粉丝列表'">直推列表</text>
-			<text class="font-12 font-light-gray">共{{allcount}}人</text>
-		</view> -->
-		<view class="nav-cont flex-center flex-j-around pb-25 pt-20">
-			<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1;init();">代还记录</text>
-			<text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2;init();">转出记录</text>
-		</view>
-		<view class="list-content">
-			<view class="cont-list flex-center flex-j-between" v-for="(item,index) in list" :key="index" @click="app.showOpen('user/teamDetail?id='+item.user_id)">
-				<image :src="item.avatar?item.avatar:'../../static/img/ed65e399554bd6a5423f8c5da027b31.png'"></image>
-				<view class="cont-data">
-					<view class="flex-center flex-j-between">
-						<view class="flex-center font-w-b nowrap">
-							{{item.username}}
-							<text class="lvl one-row">LV.{{item.level}}</text>
-						</view>
-						<text class="font-12">推荐奖励 ：{{item.contribution}}</text>
-					</view>
-					<view class="flex-center flex-j-between nowrap font-12 font-light-gray mt-5">
-						<text class="nowrap">联系方式：{{item.mobile}}</text>
-						<text class="nowrap">注册时间：{{app._formatDate(item.created_at)}}</text>
-					</view>
+		<view class="" v-if="isShow">
+			<view class="base-data bc-white">
+				<view class="left flex-row flex-j-between" style="margin-bottom: 16rpx;">
+					<view>链改名称 : <text class="m-l-4">{{lg_name}}</text></view>
+				</view>
+				<view class="right flex-row flex-j-between" style="margin-bottom: 16rpx;">
+					<view>链改金额 : <text class="m-l-4">{{amount | textAmount}}</text></view>
+					<view>链改类型 : <text class="m-l-4">{{lg_type}}</text></view>
+				</view>
+				<view class="right flex-row flex-j-between">
+					<view>期限 : <text class="m-l-4">{{lg_date}}</text></view>
+					<view>月费 : <text class="m-l-4">{{month_fee | textAmount}}</text></view>
 				</view>
 			</view>
-			<uni-load-more :status="loadingType"></uni-load-more>
-		</view>	
+			<view class="nav-cont flex-center flex-j-around pb-25 pt-20">
+				<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1">代还记录</text>
+				<text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2">转出记录</text>
+			</view>
+			<view class="list-content">
+				<view class="cont-list flex-center flex-j-between" v-for="(item,index) in dataList" :key="index">
+					<view class="">
+						<view style="margin-bottom: 16rpx;">{{item.date_num}}期</view>
+						<view v-if="hierarchy == 1">{{item.replace_date}}</view>
+						<view v-else>{{item.deduct_date}}</view>
+					</view>
+					<view v-if="hierarchy == 1">
+						<view style="margin-bottom: 16rpx;">{{item.amount | textAmount}}(人民币)</view>
+						<view style="text-align: end;" v-if="item.status == 1">已完成</view>
+						<view style="text-align: end;" v-else>待转入</view>
+					</view>
+					<view v-else>
+						<view style="margin-bottom: 16rpx;">{{item.amount | textAmount}}(链++)</view>
+						<view style="text-align: end;" v-if="item.status == 0">待转出</view>
+						<view style="text-align: end;" v-if="item.status == 1">已转出</view>
+						<view style="text-align: end;" v-else>已逾期</view>
+					</view>
+				</view>
+				<!-- <uni-load-more :status="loadingType"></uni-load-more> -->
+			</view>	
+		</view>
 	</view>
 </template>
 
 <script>
 	import config from "@/common/js/config.js"
-	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	export default {
-		components: {
-			uniLoadMore	
-		},
 		data() {
 			return {
+				lg_name:'',
+				lg_type: '',
+				amount: '',
+				lg_date: '',
+				month_fee: '',
 				page:1,
 				count:20,
 				list:[],
@@ -62,68 +65,58 @@
 				all_earnings_ots:0,
 				team_invest:0,
 				hierarchy:1,
+				id: '',
+				replaceList: [],
+				monthfeeList: [],
+				isShow: false
 			}
 		},
-		onLoad() {
-			var self=this;
-			self.get_list();
+		filters: {
+			textAmount(value) {
+				return parseFloat(value).toFixed(2)
+			}
 		},
-		onReachBottom(){//加载更多
-			this.get_list();
+		computed: {
+			dataList() {
+				if(this.hierarchy == 1) {
+					return this.replaceList
+				}else {
+					return this.monthfeeList
+				}
+			}
+		},
+		onLoad(e) {
+			var self=this;
+			self.id = e.id;
+			self.get_data();
 		},
 		methods: {
-			init:function(){
+			get_data:function(){
 				var self=this;
-				self.loadingType = 'more';
-				self.page = 1;
-				self.list = [];
-				self.get_list();
-			},
-			get_list:function(){
-				var self=this;
-				if(self.loadingType === 'nomore'){
-					return;
-				}else{
-					self.loadingType = 'loading';
-				};
-				var send={
-					type:0,
-					level:-1,
-					count:self.count,
-					page:self.page,
-					hierarchy:self.hierarchy
-				};
 				uni.showLoading({title: '获取中，请稍等'});
 				uni.request({
-					url: config.api_service + "/get.user.team",
-					data: send,
+					url: config.api_service + "/get.liangai.detail",
+					data: {
+						liangai_id: self.id
+					},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						// console.log(JSON.stringify(res));
-						uni.hideLoading();
+						console.log(res)
 						config.api_status(res);
 						if (res.data.code == 200) {
-							self.allcount=res.data.data.list.total;
-							// self.yes_earnings_otg=res.data.data.yes_earnings_otg;
-							self.yes_earnings_otg=res.data.data.team_num;
-							self.all_earnings_otg=res.data.data.all_earnings_otg;
-							self.yes_earnings_ots=res.data.data.yes_earnings_ots;
-							self.all_earnings_ots=res.data.data.all_earnings_ots;
-							self.team_invest=res.data.data.team_invest;
-							for(var i=0;i<res.data.data.list.data.length;i++){
-								var item=res.data.data.list.data[i];
-								self.list.push(item);
-							};
-							if(res.data.data.list.data.length==0 || res.data.data.list.data.length<self.count){
-								self.loadingType = 'nomore';
-							}else{
-								self.loadingType = 'more';
-							};
-							self.page++;
+							self.lg_name = res.data.data.detail.lg_name;
+							self.lg_type = res.data.data.detail.lg_type;
+							self.amount = res.data.data.detail.amount;
+							self.lg_date = res.data.data.detail.lg_date;
+							self.month_fee = res.data.data.detail.month_fee;
+							self.replaceList = res.data.data.replace;
+							self.monthfeeList = res.data.data.month_fee;
+							self.isShow = true;
 						}else{
 							self.app._toast(res.data.message);
 						};
+						uni.hideLoading();
 					},
 					fail: (res) => {
 						uni.hideLoading();
@@ -135,6 +128,62 @@
 					complete: (res) => {}
 				});
 			}
+			// get_list:function(){
+			// 	var self=this;
+			// 	if(self.loadingType === 'nomore'){
+			// 		return;
+			// 	}else{
+			// 		self.loadingType = 'loading';
+			// 	};
+			// 	var send={
+			// 		type:0,
+			// 		level:-1,
+			// 		count:self.count,
+			// 		page:self.page,
+			// 		hierarchy:self.hierarchy
+			// 	};
+			// 	uni.showLoading({title: '获取中，请稍等'});
+			// 	uni.request({
+			// 		url: config.api_service + "/get.user.team",
+			// 		data: send,
+			// 		method: "get",
+			// 		header: {Authorization: config.getToken()},
+			// 		success: res => {
+			// 			// console.log(JSON.stringify(res));
+			// 			uni.hideLoading();
+			// 			config.api_status(res);
+			// 			if (res.data.code == 200) {
+			// 				self.allcount=res.data.data.list.total;
+			// 				// self.yes_earnings_otg=res.data.data.yes_earnings_otg;
+			// 				self.yes_earnings_otg=res.data.data.team_num;
+			// 				self.all_earnings_otg=res.data.data.all_earnings_otg;
+			// 				self.yes_earnings_ots=res.data.data.yes_earnings_ots;
+			// 				self.all_earnings_ots=res.data.data.all_earnings_ots;
+			// 				self.team_invest=res.data.data.team_invest;
+			// 				for(var i=0;i<res.data.data.list.data.length;i++){
+			// 					var item=res.data.data.list.data[i];
+			// 					self.list.push(item);
+			// 				};
+			// 				if(res.data.data.list.data.length==0 || res.data.data.list.data.length<self.count){
+			// 					self.loadingType = 'nomore';
+			// 				}else{
+			// 					self.loadingType = 'more';
+			// 				};
+			// 				self.page++;
+			// 			}else{
+			// 				self.app._toast(res.data.message);
+			// 			};
+			// 		},
+			// 		fail: (res) => {
+			// 			uni.hideLoading();
+			// 			if(res.errMsg == 'request:fail timeout'){
+			// 				console.log("请求超时了");
+			// 			};
+			// 			console.log(JSON.stringify(res));
+			// 		},
+			// 		complete: (res) => {}
+			// 	});
+			// }
 		}
 	}
 </script>
@@ -150,7 +199,7 @@
 	.base-data .data-cont{width: 42%;}
 	.plate-title{position: relative;z-index: 1;}
 	.list-content{width: 100%;border-top: 1px solid #F5F5F5;position: relative;z-index: 1;}
-	.cont-list{width: 100%;padding: 24px 0px;border-bottom: 1px solid #F5F5F5;}
+	.cont-list{width: 100%;padding: 24rpx 0px;border-bottom: 1px solid #F5F5F5;}
 	.cont-list image{width: 36px;height: 36px;border-radius: 50%;}
 	.cont-list .cont-data{width: calc(100% - 50px);}
 	.cont-list .cont-data .lvl{background-color: #221915;border-radius: 10px;line-height: 20px;padding: 0px 10px;margin-left: 10px;color: #E52321;font-size: 11px;}

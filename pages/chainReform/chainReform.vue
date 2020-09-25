@@ -1,42 +1,44 @@
 <template>
 	<view class="box pl-15 pr-15 pb-15">
-		<view class="balance-cont text-center nowrap pt-15 pb-30 pl-15 pr-15">
-			<view class="flex-center flex-j-center font-white" style="opacity: 0.7;">
-				余额(人民币)
-				<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
-			</view>
-			<view class="font-yellow font-24 font-w-b nowrap mt-10" v-text="eye?'******':balance">0</view>
-			<!-- <view class="nowrap mt-10 font-white" style="opacity: 0.7;">≈{{eye?'******':allCny}} CNY</view> -->
-		</view>
-		<view class="nav-cont flex-center flex-j-around bc-white mb-25">
-			<view class="text-center" @click="app.showOpen('chainReform/recharge')">
-				<image src="../../static/img/c41e0ba6a9e8861ef50609a1e6b94a0.png"></image>
-				<view class="font-12 pt-10">充值</view>
-			</view>
-			<view class="text-center" @click="app.showOpen('chainReform/withdraw')">
-				<image src="../../static/img/96bf6ca2775d0a187ab81fafac04105.png"></image>
-				<view class="font-12 pt-10">提现</view>
-			</view>
-			<view class="text-center" @click="app.showOpen('share/share')">
-				<image src="../../static/img/addb9abc141fc4b77ef3fed0ef21ac7.png"></image>
-				<view class="font-12 pt-10">分享</view>
-			</view>
-		</view>
-		<view class="pb-15" style="display:flex;justify-content: space-between;">
-			<text class="title font-16 font-w-b">我的链改</text>
-			<text class="title font-16 font-w-b" 
-			style="background-color: #1a2b5a;color:#fff;border-radius: 10rpx;padding: 8rpx 12rpx;" @click="app.showOpen('chainReform/Notice')">申请链改</text>
-		</view>
-		<view class="list-content">
-			<view class="cont-list flex-center flex-j-between"
-			 v-for="(item,index) in dataList" :key="index" @tap='enter(i)'>
-				<view>
-					<view class="m-b-8">{{item.lg_name}}</view>
-					<view>{{item.lg_date}}(期)</view>
+		<view class="" v-if="isShow">
+			<view class="balance-cont text-center nowrap pt-15 pb-30 pl-15 pr-15">
+				<view class="flex-center flex-j-center font-white" style="opacity: 0.7;">
+					余额(人民币)
+					<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
 				</view>
-				<view>
-					<view class="m-b-8">{{item.confirm_date}}</view>
-					<view class="">{{item.month_fee}}/枚(月费)</view>
+				<view class="font-yellow font-24 font-w-b nowrap mt-10" v-text="eye?'******':balance">0</view>
+				<!-- <view class="nowrap mt-10 font-white" style="opacity: 0.7;">≈{{eye?'******':allCny}} CNY</view> -->
+			</view>
+			<view class="nav-cont flex-center flex-j-around bc-white mb-25">
+				<view class="text-center" @click="app.showOpen('chainReform/recharge')">
+					<image src="../../static/img/c41e0ba6a9e8861ef50609a1e6b94a0.png"></image>
+					<view class="font-12 pt-10">充值</view>
+				</view>
+				<view class="text-center" @click="app.showOpen('chainReform/withdraw')">
+					<image src="../../static/img/96bf6ca2775d0a187ab81fafac04105.png"></image>
+					<view class="font-12 pt-10">提现</view>
+				</view>
+				<view class="text-center" @click="app.showOpen('share/share')">
+					<image src="../../static/img/addb9abc141fc4b77ef3fed0ef21ac7.png"></image>
+					<view class="font-12 pt-10">分享</view>
+				</view>
+			</view>
+			<view class="pb-15" style="display:flex;justify-content: space-between;">
+				<text class="title font-16 font-w-b">我的链改</text>
+				<text class="title font-16 font-w-b" 
+				style="background-color: #1a2b5a;color:#fff;border-radius: 10rpx;padding: 8rpx 12rpx;" @click="app.showOpen('chainReform/Notice')">申请链改</text>
+			</view>
+			<view class="list-content">
+				<view class="cont-list flex-center flex-j-between"
+				 v-for="(item,index) in dataList" :key="index" @tap='enter(index)'>
+					<view>
+						<view class="m-b-8">{{item.lg_name}}</view>
+						<view>{{item.lg_date}}(期)</view>
+					</view>
+					<view>
+						<view class="m-b-8">{{item.confirm_date}}</view>
+						<view class="">{{item.month_fee}}/枚(月费)</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -54,7 +56,8 @@
 			return {
 				eye:false,
 				dataList:[],
-				balance: ''
+				balance: '',
+				isShow: false
 			}
 		},
 		onNavigationBarButtonTap(e) {
@@ -74,7 +77,7 @@
 			...mapMutations(["SetCoin"]),
 			enter(i) {
 				uni.navigateTo({
-					url: '/pages/chainReform/chainReformDetail'
+					url: ('/pages/chainReform/chainReformDetail?id=' + this.dataList[i].id)
 				})
 			},
 			get_data:function(){
@@ -87,15 +90,16 @@
 					header: {Authorization: config.getToken()},
 					success: res => {
 						console.log(res)
-						// console.log(JSON.stringify(res));
-						uni.hideLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.balance = res.data.data.balance;
+							console.log(res)
 						}else{
 							self.app._toast(res.data.message);
 						};
+						uni.hideLoading();
+						self.isShow = true;
 					},
 					fail: (res) => {
 						uni.hideLoading();

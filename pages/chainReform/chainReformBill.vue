@@ -12,29 +12,31 @@
 			</view>
 			<view class="balance-cont flex-center flex-j-between bc-white">
 				<view class="cont text-center nowrap">
-					<view class="font-12 font-light-gray">当月支出(链++)</view>
-					<view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="data.out">658420.30700</view>
-					<view class="font-12 font-black">≈{{data.out_cny}} CNY</view>
+					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月支出(人民币)</view>
+					<!-- <view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="data.out">658420.30700</view> -->
+					<view class="font-12 font-black">{{data.out}} CNY</view>
 				</view>
 				<view class="cont text-center nowrap">
-					<view class="font-12 font-light-gray">当月收入(链++)</view>
-					<view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="app._toFixed(data.in,2)">0.00</view>
+					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月收入(人民币)</view>
+					<!-- <view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="app._toFixed(data.in,2)">0.00</view> -->
 					<!-- <view class="font-12 font-black">≈{{app._accMul(data.in_cny,7)}} CNY</view> -->
-					<view class="font-12 font-black">≈{{data.in_cny}} CNY</view>
+					<view class="font-12 font-black">{{data.in}} CNY</view>
 				</view>
 			</view>
 		</view>
 		<view class="list-content pt-10">
 			<view class="cont-list flex-center flex-j-between" v-for="(item,index) in list" :key="index">
-				<image :src="item.logo"></image>
+				<!-- <image :src="item.logo"></image> -->
 				<view class="cont-data">
 					<view class="flex-center flex-j-between">
-						<view class="one-row" v-text="item.coin_name">BTC</view>
-						<view class="font-w-b nowrap" v-text="app._toFixed(item.money,2)">316546.015421</view>
+						<view class="one-row" v-text="item.amount"></view>
+						<view class="font-w-b nowrap" v-if="item.type_id == 1">充值</view>
+						<view class="font-w-b nowrap" v-else-if="item.type_id == 2">提现</view>
+						<view class="font-w-b nowrap" v-else="item.type_id == 3">月费转入</view>
 					</view>
 					<view class="flex-center flex-j-between mt-10">
-						<view class="font-12 font-light-gray nowrap" v-text="item.created_at">2020-01-19 08:02</view>
-						<view class="font-10 font-light-gray nowrap" :class="{'font-yellow':item.remark=='充值'}" v-text="item.remark">提现</view>
+						<view class="font-12 font-light-gray nowrap" v-text="item.created_at"></view>
+						<!-- <view class="font-10 font-light-gray nowrap" :class="{'font-yellow':item.remark=='充值'}" v-text="item.remark">提现</view> -->
 					</view>
 				</view>
 			</view>
@@ -42,32 +44,34 @@
 		<uni-load-more :status="loadingType"></uni-load-more>
 		<view class="winPopup flex-row flex-j-end" v-if="popSW" @click="popSW=false">
 			<view class="Popup-content bc-white pl-15 pr-15 pt-15" @click.stop="">
-				<view class="pb-30">
+				<!-- <view class="pb-30">
 					<view class="font-16 font-w-b text-left">交易币种</view>
 					<view class="choice-list flex-center flex-j-between">
 						<view class="name nowrap text-center" :class="{'active':coin_id==''}" @click="coin_id=''">全部</view>
 						<view class="name nowrap text-center" :class="{'active':coin_id==item.id}" @click="coin_id=item.id" v-for="(item,index) in allCoin" :key="index" v-text="item.en_name">链++</view>
 					</view>
-				</view>
+				</view> -->
 				<view class="pb-30">
 					<view class="font-16 font-w-b text-left">出入类型</view>
 					<view class="choice-list flex-center flex-j-between">
-						<view class="name nowrap text-center" :class="{'active':type==''}" @click="type=''">全部</view>
-						<view class="name nowrap text-center" :class="{'active':type=='1'}" @click="type='1'">入账</view>
-						<view class="name nowrap text-center" :class="{'active':type=='2'}" @click="type='2'">出账</view>
+						<view class="name nowrap text-center" :class="{'active':type==0}" @click="type=0">全部</view>
+						<view class="name nowrap text-center" :class="{'active':type==1}" @click="type=1">入账</view>
+						<view class="name nowrap text-center" :class="{'active':type==2}" @click="type=2">出账</view>
 					</view>
 				</view>
 				<view class="pb-30">
 					<view class="font-16 font-w-b text-left">账单类型</view>
 					<view class="choice-list flex-center flex-j-between">
-						<view class="name nowrap text-center" :class="{'active':type_id==''}" @click="type_id=''">全部</view>
-						<view class="name nowrap text-center" :class="{'active':type_id==item.id}" @click="type_id=item.id" v-for="(item,index) in type_list" :key="index" v-text="item.name">钱包充值</view>
+						<view class="name nowrap text-center" :class="{'active':type_id==0}" @click="type_id=0">全部</view>
+						<view class="name nowrap text-center" 
+						:class="{'active':type_id==item.id}" @click="type_id=item.id" 
+						v-for="(item,index) in type_list" :key="index" v-text="item.name">钱包充值</view>
 					</view>
 				</view>
 				<view class="pb-30">
 					<view class="font-16 font-w-b text-left">最小交易金额</view>
 					<view class="Input-cont mt-15">
-						<input type="text" placeholder="输入内容" v-model="min_money" />
+						<input type="number" placeholder="输入内容" v-model="min_money" />
 					</view>
 				</view>
 				<view class="foot-cont flex-center flex-j-between pl-15 pr-15 bc-white">
@@ -98,10 +102,22 @@
 				loadingType: 'more', //加载更多状态
 				popSW:false,
 				coin_id:"",//交易币种id
-				type:"",//1转入 2转出
-				type_list:[],
-				type_id:"",//类型id
-				min_money:"",
+				type: 0,//1转入 2转出
+				type_list:[
+					{
+						name: '充值',
+						id: 1
+					},{
+						name: '提现',
+						id: 2
+					},
+					{
+						name: '月费转入',
+						id: 3
+					}
+				],
+				type_id: 0,//类型id
+				min_money: 0,
 				timeSW:false,
 				year:"",
 				time:"",
@@ -116,7 +132,7 @@
 		onLoad() {
 			var self=this;
 			self.time=self.getTime(0);
-			self.get_type();
+			// self.get_type();
 			self.get_list();
 		},
 		onReachBottom(){//加载更多
@@ -137,11 +153,10 @@
 			},
 			reset:function(){
 				var self=this;
-				self.type_id="";//类型id
-				self.coin_id="";//币种id
-				self.type="";//1转入 2转出
-				self.time="";//月份
-				self.min_money="";//最小金额
+				self.type_id=0;//类型id
+				self.type=0;//1转入 2转出
+				// self.time="" ;//月份
+				self.min_money= 0;//最小金额
 			},
 			get_list:function(){
 				var self=this;
@@ -154,14 +169,13 @@
 					page:self.page,
 					count:self.count,
 					type_id:self.type_id,//类型id
-					coin_id:self.coin_id,//币种id
-					type:self.type,//1转入 2转出
+					in_out:self.type,//1转入 2转出
 					month:self.time,//月份
-					min_money:self.min_money,//最小金额
+					min_amount:self.min_money,//最小金额
 				};
 				uni.showNavigationBarLoading();
 				uni.request({
-					url: config.api_service + "/get.coin.bill",
+					url: config.api_service + "/get.bills",
 					data: send,
 					method: "get",
 					header: {Authorization: config.getToken()},
@@ -169,18 +183,16 @@
 						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
+						console.log(res)
 						if (res.data.code == 200) {
-							self.data.in=res.data.data.in;
-							self.data.out=res.data.data.out;
-							self.data.in_cny=self.app._accMul(res.data.data.in,0.25)
-							self.data.out_cny=self.app._accMul(res.data.data.out,0.25)
-							// self.data.in_cny=self.app._accMul(coin.getCny('链++'),(res.data.data.in));
-							// self.data.out_cny=self.app._accMul(coin.getCny('链++'),(res.data.data.out));
-							for(var i=0;i<res.data.data.list.length;i++){
-								var item=res.data.data.list[i];
+							self.data.in=res.data.data.month_in;
+							self.data.out=res.data.data.month_out;
+							for(var i=0;i<res.data.data.bills.data.length;i++){
+								var item=res.data.data.bills.data[i];
 								self.list.push(item);
 							};
-							if(res.data.data.list.length==0 || res.data.data.list.length<self.count){
+							console.log(self.list)
+							if(res.data.data.bills.data.length==0 || res.data.data.bills.data.length<self.count){
 								self.loadingType = 'nomore';
 							}else{
 								self.loadingType = 'more';
@@ -208,6 +220,7 @@
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.type_list=res.data.data.list;
+							
 						}else{
 							self.app._toast(res.data.message);
 						};
@@ -244,7 +257,7 @@
 	.list-content{min-height: 70vh;}
 	.cont-list{width: 100%;padding: 16px 0px;border-bottom: 1px solid #F5F5F5;}
 	.cont-list image{width: 24px;height: 24px;border-radius: 50%;}
-	.cont-list .cont-data{width: calc(100% - 40px);position: relative;}
+	.cont-list .cont-data{width: 100%;position: relative;}
 	.Popup-content{width: 80%;height: 100%;overflow-y: auto;position: relative;padding-bottom: 70px;}
 	.Popup-content .choice-list{width: 100%;flex-wrap: wrap;position: relative;}
 	.Popup-content .choice-list::after{width: 30%;content: "";}

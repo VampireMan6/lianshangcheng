@@ -1,118 +1,126 @@
 <template>
 	<view class="box pt-15 pb-15" @touchmove.stop.prevent="moveHandle">
-		<scroll-view scroll-y="true" :style="{height: scrollHeight + 'px'}">
-			<view style="padding: 0 30rpx;box-sizing: border-box;">
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">用户姓名：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写姓名" placeholder-class="input-placeholder" v-model="name" maxlength="20" />
+		<view class="" v-if="isShow">
+			<scroll-view scroll-y="true" :style="{height: scrollHeight + 'px'}">
+				<view style="padding: 0 30rpx;box-sizing: border-box;">
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">用户姓名：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写姓名" placeholder-class="input-placeholder" v-model="name" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">身份证号：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写身份证号" placeholder-class="input-placeholder" v-model="IdNumber" maxlength="18" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">身份证号：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写身份证号" placeholder-class="input-placeholder" v-model="IdNumber" maxlength="18" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">联系电话：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">联系电话：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
+						</view>
 					</view>
-				</view>
-				<!-- <view class="cont-list flex-center" @click="chooseCity">
-					<text class="title one-row mr-20">联系地址：</text>
-					<view class="nowrap flex-1">{{region.label}}</view>
-				</view> -->
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">联系地址：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写联系地址" placeholder-class="input-placeholder" v-model="address" maxlength="20" />
+					<!-- <view class="cont-list flex-center" @click="chooseCity">
+						<text class="title one-row mr-20">联系地址：</text>
+						<view class="nowrap flex-1">{{region.label}}</view>
+					</view> -->
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">联系地址：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写联系地址" placeholder-class="input-placeholder" v-model="address" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改名称：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改名称：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改类型：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="dataText1" maxlength="20" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改类型：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="dataText1" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<!-- <view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改类型：</text>
-					<picker @change="select1" style="flex: 1" :value="index1" :range="dataList1">
-					  <view class="uni-input" style="width: 100%;">{{dataText1}}</view>
-					</picker>
-				</view> -->
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改金额：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
+					<!-- <view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改类型：</text>
+						<picker @change="select1" style="flex: 1" :value="index1" :range="dataList1">
+						  <view class="uni-input" style="width: 100%;">{{dataText1}}</view>
+						</picker>
+					</view> -->
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改金额：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改期限：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改期限" placeholder-class="input-placeholder" v-model="dataText2" maxlength="20" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改期限：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改期限" placeholder-class="input-placeholder" v-model="dataText2" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<!-- <view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改期限：</text>
-					<picker @change="select2" style="flex: 1" :value="index2" :range="dataList2">
-					  <view class="uni-input" style="width: 100%;">{{dataText2}}</view>
-					</picker>
-				</view> -->
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改月费：</text>
-					<view class="flex-1">
-						<input disabled type="number" placeholder="请填写链改月费" placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
+					<!-- <view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改期限：</text>
+						<picker @change="select2" style="flex: 1" :value="index2" :range="dataList2">
+						  <view class="uni-input" style="width: 100%;">{{dataText2}}</view>
+						</picker>
+					</view> -->
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改月费：</text>
+						<view class="flex-1">
+							<input disabled type="number" placeholder="请填写链改月费" placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改服务费：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改服务费" placeholder-class="input-placeholder" v-model="serviceCharge" maxlength="20" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改服务费：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改服务费" placeholder-class="input-placeholder" v-model="serviceCharge" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<!-- <view class="cont-list flex-center">
-					<text class="title one-row mr-20">是否一次性结清月费：</text>
-					<radio-group @change="radioChange">
-						<label class="mr-20">
-							<radio color="#1A2B5A" :checked="sex==1" value="1"></radio>
-							<text>是</text>
-						</label>
-						<label class="last">
-							<radio color="#1A2B5A" :checked="sex==0" value="0"></radio>
-							<text>否</text>
-						</label>
-					</radio-group>
-				</view> -->
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改保证金：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
+					<!-- <view class="cont-list flex-center">
+						<text class="title one-row mr-20">是否一次性结清月费：</text>
+						<radio-group @change="radioChange">
+							<label class="mr-20">
+								<radio color="#1A2B5A" :checked="sex==1" value="1"></radio>
+								<text>是</text>
+							</label>
+							<label class="last">
+								<radio color="#1A2B5A" :checked="sex==0" value="0"></radio>
+								<text>否</text>
+							</label>
+						</radio-group>
+					</view> -->
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">链改保证金：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
+						</view>
 					</view>
-				</view>
-				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">还款日期：</text>
-					<view class="flex-1">
-						<input disabled placeholder="请填写还款日期" placeholder-class="input-placeholder" v-model="dataText3" maxlength="20" />
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">还款日期：</text>
+						<view class="flex-1">
+							<input disabled placeholder="请填写还款日期" placeholder-class="input-placeholder" v-model="dataText3" maxlength="20" />
+						</view>
 					</view>
+					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">协议编码：</text>
+						<view class="flex-1">
+							<input disabled  placeholder-class="input-placeholder" v-model="sn" maxlength="20" />
+						</view>
+					</view>
+					<!-- <view class="cont-list flex-center">
+						<text class="title one-row mr-20">还款日：</text>
+						<picker @change="select3" style="flex: 1" :value="index3" :range="dataList3">
+						  <view class="uni-input" style="width: 100%;">{{dataText3}}</view>
+						</picker>
+					</view> -->
 				</view>
-				<!-- <view class="cont-list flex-center">
-					<text class="title one-row mr-20">还款日：</text>
-					<picker @change="select3" style="flex: 1" :value="index3" :range="dataList3">
-					  <view class="uni-input" style="width: 100%;">{{dataText3}}</view>
-					</picker>
-				</view> -->
+			</scroll-view>
+			<view style="padding: 30rpx 30rpx 0;box-sizing: border-box;">
+				<button class="btn" @click="submit">确定</button>
 			</view>
-		</scroll-view>
-		<view style="padding: 30rpx 30rpx 0;box-sizing: border-box;">
-			<button class="btn" @click="submit">确定</button>
 		</view>
 		<mpvue-city-picker :themeColor="'#3D6AA1'" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValue" @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
@@ -122,9 +130,11 @@
 	import config from "@/common/js/config.js"
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
 	export default {
-		onLoad() {
+		onLoad(value) {
+			this.id = value.id;
 			const res = uni.getSystemInfoSync();
 			this.scrollHeight = res.windowHeight - uni.upx2px(160);
+			this.getData();
 		},
 		components: {
 			mpvueCityPicker
@@ -180,7 +190,9 @@
 				province: '',
 				city: '',
 				county: '',
-				id: ''
+				id: '',
+				isShow: false,
+				sn: ''
 			}
 		},
 		methods: {
@@ -215,49 +227,40 @@
 				return;
 			},
 			submit() {
-				if(!this.status) {
-					this.status = true;
-					this.even();
-				}
+				uni.navigateTo({
+					url: ('/pages/market/pay?id=' + this.sn)
+				})
 			},
-			even:function(){
+			getData:function(){
 				var self=this;
-				var send = {
-					name: self.name,
-					id_card: self.IdNumber,
-					mobile: self.mobile,
-					address: self.addressText,
-					lg_name: self.chainReformName,
-					lg_type: self.dataText1,
-					amount: parseFloat(self.chainReformNumber),
-					lg_date: parseInt(self.dataText2),
-					month_fee: parseFloat(self.chainReformNumberMonth),
-					service_fee: parseFloat(self.serviceCharge),
-					is_once_pay: parseFloat(self.sex),
-					margin: parseFloat(self.margin),
-					day: self.dataText3
-				};
 				uni.showNavigationBarLoading();
 				uni.request({
-					url: config.api_service + "/post.liangai.apply",
-					data: send,
-					method: "post",
+					url: config.api_service + "/get.liangai.abstract",
+					data: {
+						liangai_id: self.id
+					},
+					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
-							self.app._toastIcon(res.data.message);
-							// var page=self.app._prePage();
-							// page.$vm.get_list();
-							this.status = false;
-							console.log(res)
-							// setTimeout(function(){
-							// 	self.app.goBack();
-							// },500);
-							uni.navigateTo({
-								url: ('/pages/chainReform/contract?id=' + res.data.data)
-							})
+							console.log(res);
+							self.name = res.data.data.name;
+							self.IdNumber = res.data.data.id_card;
+							self.mobile = res.data.data.mobile;
+							self.address = res.data.data.address;
+							self.chainReformName = res.data.data.lg_name;
+							self.dataText1 = res.data.data.lg_type;
+							self.chainReformNumber = res.data.data.amount;
+							self.dataText2 = res.data.data.lg_date;
+							self.chainReformNumberMonth = res.data.data.month_fee;
+							self.serviceCharge = res.data.data.service_fee;
+							self.margin = res.data.data.margin;
+							self.dataText3 = res.data.data.day
+							self.sn = res.data.data.sn;
+							self.status = false;
+							self.isShow = true;
 						}else{
 							self.app._toast(res.data.message);
 						};

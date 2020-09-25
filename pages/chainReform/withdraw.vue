@@ -1,19 +1,10 @@
 <template>
-	<view class="box pl-15 pr-15 pb-15" v-if="data">
-		<!-- <view class="choice-coin flex-center flex-j-between" @click="app.showOpen('wallet/choiceCoin')">
-			<view class="flex-center nowrap font-white font-16 font-w-b">
-				<image class="mr-10" :src="data.logo"></image>{{data.name}}
-			</view>
-			<view class="flex-center font-white">
-				切换通证<i class="iconfont icon-shang-copy ml-10"></i>
-			</view>
-		</view> -->
+	<view class="box pl-15 pr-15 pb-15">
 		<view class="content bc-white">
 			<view class="pb-20">
 				<view class="pb-10">姓名</view>
 				<view class="Input-cont flex-center flex-j-between">
 					<input class="pr-10" type="text" placeholder="请输入姓名" v-model="name" />
-					<!-- <i class="iconfont icon-icon_xinyong_xianxing_jijin-" @click="get_address()"></i> -->
 				</view>
 			</view>
 			<view class="pb-20">
@@ -28,45 +19,17 @@
 					<input type="text" placeholder="请输入卡号" v-model="cardNumber" />
 				</view>
 			</view>
-			<!-- withdraw_fee_type:1固定费用 2 固定费率-->
-			<!-- <view class="pb-20" v-if="data.withdraw_fee_type==1">
-				<view class="pb-10 flex-center flex-j-between">
-					<text class="one-row">手续费</text>
-					<view class="nowrap font-12 font-light-gray">费率：
-					{{ app._accMul( (app._accMul(number,data.withdraw_fee)>data.min_withdraw_fee?data.withdraw_fee:data.min_withdraw_fee) , 100) }} %
-					</view>
-				</view>
-				<view class="Input-cont flex-center flex-j-between">
-					<view class="nowrap" v-text="data.withdraw_fee"></view>
-					<text class="one-row font-12">{{data.name}}</text>
-				</view>
-			</view>
-			<view class="pb-20" v-else-if="data.withdraw_fee_type==2">
-				<view class="pb-10 flex-center flex-j-between">
-					<text class="one-row">手续费</text>
-					<view class="nowrap font-12 font-light-gray">费率：
-					{{ app._accMul(data.withdraw_rate , 100) }} %
-					</view>
-				</view>
-				<view class="Input-cont flex-center flex-j-between">
-					<view class="nowrap">{{app._accMul(number,data.withdraw_rate)>data.min_withdraw_fee?app._accMul(number,data.withdraw_rate):data.min_withdraw_fee}}</view>
-					<text class="one-row font-12">{{data.name}}</text>
-				</view>
-			</view> -->
 			<view class="pb-20">
 				<view class="pb-10 flex-center flex-j-between">
 					<text class="one-row">提现数量</text>
-					<view class="nowrap font-12 font-light-gray">可用：{{data.other.Money}}</view>
+					<view class="nowrap font-12 font-light-gray">可用：{{balance}}</view>
 				</view>
 				<view class="Input-cont flex-center flex-j-between">
 					<input type="number" placeholder="请输入提现金额" v-model="number" />
-					<text class="one-row font-12 font-yellow" @click="number=data.other.Money">全部</text>
+					<text class="one-row font-12 font-yellow" @click="number=balance">全部</text>
 				</view>
 			</view>
 			<button class="btn mt-10 mb-30" @click="submit">确认提现</button>
-			<!-- <view class="font-12 pb-10">温馨提示：</view>
-			<view class="font-12 pl-20 lh-25 newlines">请勿提现{{data.name}}以外的地址</view>
-			<view class="font-12 pl-20 lh-25 newlines">最低1 {{data.name}}起提</view> -->
 		</view>
 		<view class="winPopup flex-center flex-j-center" v-if="paySW" @click="paySW=false">
 			<view class="payPass-content bc-white pt-25 pb-25 pl-25 pr-25" @click.stop="">
@@ -76,7 +39,7 @@
 				<view class="font-yellow text-right pt-5 font-12">
 					<text @click="app.showOpen('user/payPas?name=忘记支付密码')">忘记密码？</text>
 				</view>
-				<button class="btn mt-20" @click="goWithdraw()">确定</button>
+				<button class="btn mt-20" @click="goWithdraw">确定</button>
 			</view>
 		</view>
 	</view>
@@ -100,18 +63,52 @@
 				load:true,
 				name: "",
 				bankName: "",
-				cardNumber: ""
+				cardNumber: "",
+				balance: 0,
+				status: false
 			}
 		},
 		onLoad() {
-			var self=this;
-			self.data=self.allCoin[0];
+			this.get_data();
 		},
 		computed:{
 			...mapState(["hasLogin",'userInfo','allCoin']),
 		},
 		methods: {
 			...mapMutations(["SetCoin"]),
+			get_data:function(){
+				var self=this;
+				// uni.showLoading({title: '获取中，请稍等'});
+				uni.request({
+					url: config.api_service + "/get.balance",
+					data: {},
+					method: "get",
+					header: {Authorization: config.getToken()},
+					success: res => {
+						console.log(res)
+						config.api_status(res);
+						if (res.data.code == 200) {
+							self.balance = res.data.data.balance;
+							if(res.data.data.name) {
+								self.name = res.data.data.name;
+								self.bank_name = res.data.data.bank_name;
+								self.card_num = res.data.data.card_num;
+							};
+						}else{
+							self.app._toast(res.data.message);
+						};
+						// uni.hideLoading();
+					},
+					fail: (res) => {
+						uni.hideLoading();
+						if(res.errMsg == 'request:fail timeout'){
+							console.log("请求超时了");
+						};
+						console.log(JSON.stringify(res));
+					},
+					complete: (res) => {}
+				});
+			},
 			submit() {
 				if(!this.name.trim()) {
 					this.app._toast('请输入姓名');
@@ -135,40 +132,34 @@
 				};
 				this.paySW = true;
 			},
-			goWithdraw:function(){
-				var self=this;
-				// if(isNaN(self.number) || self.number<0 || self.number.trim().length==0){
-				// 	self.app._toast("请输入正确的提现数量");
-				// 	return;
-				// };
-				// if(Number(self.number) < Number(self.data.min_withdraw)){
-				// 	self.app._toast("最少提现"+self.data.min_withdraw);
-				// 	return;
-				// };
-				// if(self.address.trim().length==0){
-				// 	self.app._toast("请输入地址");
-				// 	return;
-				// };
-				if(self.pass.trim().length<6){
-					self.app._toast("请输入正确的密码");
+			goWithdraw() {
+				if(this.pass.trim().length<6){
+					this.app._toast("请输入正确的密码");
 					return;
 				};
+				if(!this.status) {
+					this.status = true;
+					this.goWithdraw1();
+				}
+			},
+			goWithdraw1:function(){
+				var self=this;
 				var send={
-					coin_id:self.data.id,
-					money:self.number,
-					address:self.address,
-					memo:self.memo,
-					paypassword:self.pass,
+					amount: self.number,
+					name: self.name,
+					bank_name: self.bankName,
+					card_num: self.cardNumber,
+					paypassword:self.pass
 				};
 				if(!self.load){
 					self.app._toast("正在提现中，请不要重复点击");
 					return console.log("重复点击");
-				}
+				};
 				self.load=false;
 				// console.log(JSON.stringify(send));
 				uni.showNavigationBarLoading();
 				uni.request({
-					url: config.api_service + "/post.coin.withdraw",
+					url: config.api_service + "/post.withdrawal",
 					data: send,
 					method: "post",
 					header: {Authorization: config.getToken()},
@@ -185,15 +176,18 @@
 						}else{
 							self.app._toast(res.data.message);
 						};
+						this.status = false;
 					},
 					fail: (res) => {
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};
+						this.status = false;
 						console.log(JSON.stringify(res));
 					},
 					complete: (res) => {
 						self.load=true;
+						this.status = false;
 					}
 				});
 			},

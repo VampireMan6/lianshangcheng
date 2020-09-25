@@ -2,6 +2,15 @@
 	import update from "common/js/update.js"
 	export default {
 		onLaunch: function() {
+			var args = plus.runtime.arguments;
+			if(args) {
+				uni.switchTab({
+					url: '/pages/market/category'
+				})
+			};
+			plus.globalEvent.addEventListener('newintent', (e)=> {
+				
+			});
 			update.check();
 		},
 		onShow: function() {

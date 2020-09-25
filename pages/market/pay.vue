@@ -249,6 +249,7 @@
  						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
+						console.log(res)
 						if (res.data.code == 200) {
 							self.list=res.data.data;
 							self.money="";

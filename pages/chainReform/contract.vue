@@ -39,6 +39,9 @@
 						if (res.data.code == 200) {
 							self.text = res.data.data;
 							self.show = true;
+							uni.navigateTo({
+								url: ('/pages/chainReform/applyChainReform1?id=' + res.data.data)
+							})
 						}else{
 							self.app._toast(res.data.message);
 						};
