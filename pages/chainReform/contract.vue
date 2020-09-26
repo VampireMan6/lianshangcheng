@@ -39,9 +39,6 @@
 						if (res.data.code == 200) {
 							self.text = res.data.data;
 							self.show = true;
-							uni.navigateTo({
-								url: ('/pages/chainReform/applyChainReform1?id=' + res.data.data)
-							})
 						}else{
 							self.app._toast(res.data.message);
 						};
@@ -51,7 +48,6 @@
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};
-						console.log(JSON.stringify(res));
 					},
 					complete: (res) => {}
 				});
@@ -78,8 +74,11 @@
 						if (res.data.code == 200) {
 							self.app._toast(res.data.message);
 							self.status = false;
+							// uni.navigateTo({
+							// 	url: '/pages/chainReform/applyChainReform1'
+							// });
 							uni.navigateTo({
-								url: '/pages/chainReform/applyChainReform1'
+								url: ('/pages/chainReform/applyChainReform1?id=' + self.id)
 							})
 							// setTimeout(()=> {
 							// 	uni.switchTab({

@@ -33,7 +33,7 @@
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改名称：</text>
 					<view class="flex-1">
-						<input placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
+						<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
@@ -45,7 +45,7 @@
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改金额：</text>
 					<view class="flex-1">
-						<input placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
+						<input type="number" placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
@@ -57,7 +57,8 @@
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改月费：</text>
 					<view class="flex-1">
-						<input type="number" placeholder="请填写链改月费" placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
+						<input disabled="" type="number" placeholder="请填写链改月费"
+						 placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
@@ -67,7 +68,7 @@
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">是否一次性结清月费：</text>
+					<text class="title one-row mr-20">一次性结清月费（链++）：</text>
 					<radio-group @change="radioChange">
 						<label class="mr-20">
 							<radio color="#1A2B5A" :checked="sex==1" value="1"></radio>
@@ -115,19 +116,26 @@
 			mpvueCityPicker
 		},
 		computed: {
+			chainReformNumberMonth() {
+				if(this.chainReformNumber.trim() == '' || this.dataText2 == '请点击选择链改期限') {
+					return 0
+				}else {
+					return (parseFloat(this.chainReformNumber) / parseFloat(this.dataText2)).toFixed(2)
+				}
+			},
 			serviceCharge() {
-				if(this.dataText2 == '请点击选择链改期限' || this.chainReformNumberMonth.trim() == '') {
+				if(this.dataText2 == '请点击选择链改期限') {
 					return 0
 				}else if(this.index2 == 0) {
-					return this.chainReformNumberMonth * 4
+					return (this.chainReformNumberMonth * 4).toFixed(2)
 				}else if(this.index2 == 1) {
-					return this.chainReformNumberMonth * 7
+					return (this.chainReformNumberMonth * 7).toFixed(2)
 				}else {
-					return this.chainReformNumberMonth * 8
+					return (this.chainReformNumberMonth * 8).toFixed(2)
 				}
 			},
 			margin() {
-				if(this.chainReformNumberMonth.trim() == '') {
+				if(this.chainReformNumberMonth == 0) {
 					return 0
 				}else if(this.sex == 1) {
 					return 0
@@ -148,9 +156,9 @@
 				mobile: '',
 				region: {label: "请点击选择地址",value:[],cityCode:""},
 				address:"",
-				chainReformName: "",
+				chainReformName: "链++区块链链改",
 				chainReformNumber: '',
-				chainReformNumberMonth: '',
+				// chainReformNumberMonth: '',
 				dataText1: '请点击选择链改类型',
 				dataList1: ['车改','房改','讯改','消费改','旅游改','其他改'],
 				index1: 0,
@@ -235,10 +243,10 @@
 				if(this.dataText2 == '请点击选择链改期限') {
 					return this.app._toast('请选择链改期限')
 				};
-				if(!this.chainReformNumberMonth.trim()) {
-					return this.app._toast('请输入链改月费')
-				};
-				if(!this.dataList3 == '请点击选择每月还款日期') {
+				// if(!this.chainReformNumberMonth.trim()) {
+				// 	return this.app._toast('请输入链改月费')
+				// };
+				if(this.dataText3 == '请点击选择每月还款日期') {
 					return this.app._toast('请选择还款日期')
 				};
 				if(!this.status) {
@@ -276,7 +284,7 @@
 							self.app._toastIcon(res.data.message);
 							// var page=self.app._prePage();
 							// page.$vm.get_list();
-							this.status = false;
+							// this.status = false;
 							console.log(res)
 							// setTimeout(function(){
 							// 	self.app.goBack();
@@ -287,9 +295,13 @@
 						}else{
 							self.app._toast(res.data.message);
 						};
+						this.status = false;
 					},
-					fail: (res) => {console.log(JSON.stringify(res));},
-					complete: (res) => {}
+					fail: (res) => {console.log(JSON.stringify(res));
+					this.status = false;},
+					complete: (res) => {
+						this.status = false;
+					}
 				});
 			}
 		}

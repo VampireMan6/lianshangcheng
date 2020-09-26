@@ -33,7 +33,7 @@
 					<view v-else>
 						<view style="margin-bottom: 16rpx;">{{item.amount | textAmount}}(链++)</view>
 						<view style="text-align: end;" v-if="item.status == 0">待转出</view>
-						<view style="text-align: end;" v-if="item.status == 1">已转出</view>
+						<view style="text-align: end;" v-else-if="item.status == 1">已转出</view>
 						<view style="text-align: end;" v-else>已逾期</view>
 					</view>
 				</view>

@@ -1,7 +1,7 @@
 <template>
-	<view class="box pt-15 pb-15" @touchmove.stop.prevent="moveHandle">
+	<view class="box pt-15 pb-15">
 		<view class="" v-if="isShow">
-			<scroll-view scroll-y="true" :style="{height: scrollHeight + 'px'}">
+			<!-- <scroll-view scroll-y="true" :style="{height: scrollHeight + 'px'}"> -->
 				<view style="padding: 0 30rpx;box-sizing: border-box;">
 					<view class="cont-list flex-center">
 						<text class="title one-row mr-20">用户姓名：</text>
@@ -79,19 +79,6 @@
 							<input disabled placeholder="请填写链改服务费" placeholder-class="input-placeholder" v-model="serviceCharge" maxlength="20" />
 						</view>
 					</view>
-					<!-- <view class="cont-list flex-center">
-						<text class="title one-row mr-20">是否一次性结清月费：</text>
-						<radio-group @change="radioChange">
-							<label class="mr-20">
-								<radio color="#1A2B5A" :checked="sex==1" value="1"></radio>
-								<text>是</text>
-							</label>
-							<label class="last">
-								<radio color="#1A2B5A" :checked="sex==0" value="0"></radio>
-								<text>否</text>
-							</label>
-						</radio-group>
-					</view> -->
 					<view class="cont-list flex-center">
 						<text class="title one-row mr-20">链改保证金：</text>
 						<view class="flex-1">
@@ -110,14 +97,8 @@
 							<input disabled  placeholder-class="input-placeholder" v-model="sn" maxlength="20" />
 						</view>
 					</view>
-					<!-- <view class="cont-list flex-center">
-						<text class="title one-row mr-20">还款日：</text>
-						<picker @change="select3" style="flex: 1" :value="index3" :range="dataList3">
-						  <view class="uni-input" style="width: 100%;">{{dataText3}}</view>
-						</picker>
-					</view> -->
 				</view>
-			</scroll-view>
+			<!-- </scroll-view> -->
 			<view style="padding: 30rpx 30rpx 0;box-sizing: border-box;">
 				<button class="btn" @click="submit">确定</button>
 			</view>
@@ -132,37 +113,12 @@
 	export default {
 		onLoad(value) {
 			this.id = value.id;
-			const res = uni.getSystemInfoSync();
-			this.scrollHeight = res.windowHeight - uni.upx2px(160);
+			// const res = uni.getSystemInfoSync();
+			// this.scrollHeight = res.windowHeight - uni.upx2px(160);
 			this.getData();
 		},
 		components: {
 			mpvueCityPicker
-		},
-		computed: {
-			serviceCharge() {
-				if(this.dataText2 == '请点击选择链改期限' || this.chainReformNumberMonth.trim() == '') {
-					return 0
-				}else if(this.index2 == 0) {
-					return this.chainReformNumberMonth * 4
-				}else if(this.index2 == 1) {
-					return this.chainReformNumberMonth * 7
-				}else {
-					return this.chainReformNumberMonth * 8
-				}
-			},
-			margin() {
-				if(this.chainReformNumberMonth.trim() == '') {
-					return 0
-				}else if(this.sex == 1) {
-					return 0
-				}else {
-					return this.chainReformNumberMonth * 2
-				}
-			},
-			addressText() {
-				return this.region.label + this.address;
-			}
 		},
 		data() {
 			return {
@@ -173,7 +129,7 @@
 				mobile: '',
 				region: {label: "请点击选择地址",value:[],cityCode:""},
 				address:"",
-				chainReformName: "",
+				chainReformName: "链++区块链链改",
 				chainReformNumber: '',
 				chainReformNumberMonth: '',
 				dataText1: '请点击选择链改类型',
@@ -192,7 +148,9 @@
 				county: '',
 				id: '',
 				isShow: false,
-				sn: ''
+				sn: '',
+				margin: '',
+				serviceCharge: ''
 			}
 		},
 		methods: {
@@ -222,9 +180,6 @@
 			},
 			chooseCity:function() {
 				this.$refs.mpvueCityPicker.show();
-			},
-			moveHandle() {
-				return;
 			},
 			submit() {
 				uni.navigateTo({

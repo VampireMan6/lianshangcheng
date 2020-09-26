@@ -443,6 +443,7 @@
 				"navigationBarTitleText": "链改",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
 						"buttons": [{
@@ -546,8 +547,8 @@
 			"text": "购物车"
 		}, {
 			"pagePath": "pages/chainReform/chainReform",
-			"iconPath": "static/tab/cart.png",
-			"selectedIconPath": "static/tab/cart-active.png",
+			"iconPath": "static/tab/change.png",
+			"selectedIconPath": "static/tab/change-active.png",
 			"text": "链改"
 		}, {
 			"pagePath": "pages/user/user",

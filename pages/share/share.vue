@@ -9,7 +9,8 @@
 					<text class="color_red">复制</text>
 				</view>
 				<view class="qrcode">
-					<tki-qrcode ref="qrcode"
+					<image :src="images" style="width: 320upx;height: 320upx;" mode=""></image>
+					<!-- <tki-qrcode ref="qrcode"
 						:val="'https://h5.atbpt.com?InviteCode='+userInfo.code"
 						:size="300"
 						background="#fff"
@@ -20,7 +21,7 @@
 						:show="true"
 						:showLoading="false"
 						unit="upx">
-					</tki-qrcode>
+					</tki-qrcode> -->
 				</view>
 				<button class="btn" @click="goInvite">立即邀请</button>
 			</view>
@@ -31,6 +32,8 @@
 <script>
 	import config from "@/common/js/config.js"
 	import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue"
+	import QR from "@/common/js/wxqrcode.js"
+	
 	import {
 		mapState,
 		mapMutations
@@ -41,12 +44,14 @@
 		},
 		data() {
 			return {
-				shareInfo: {}
+				shareInfo: {},
+				images: ''
 			}
 		},
 		onLoad() {
 			var self=this;
 			self.getInfo();
+			self.images =  QR.createQrCodeImg('https://h5.atbpt.com?InviteCode=' + self.userInfo.code, { size: parseInt(260) });
 		},
 		computed:{
 			...mapState(["hasLogin",'userInfo']),

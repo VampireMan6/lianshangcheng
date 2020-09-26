@@ -19,7 +19,7 @@
 					<view class="font-12 pt-10">提现</view>
 				</view>
 				<view class="text-center" @click="app.showOpen('share/share')">
-					<image src="../../static/img/addb9abc141fc4b77ef3fed0ef21ac7.png"></image>
+					<image style="border-radius: 100%;" src="../../static/img/share2.png"></image>
 					<view class="font-12 pt-10">分享</view>
 				</view>
 			</view>
@@ -60,13 +60,18 @@
 				isShow: false
 			}
 		},
+		onPullDownRefresh() {
+			console.log(11111);
+			
+			this.get_data('loading');
+		},
 		onNavigationBarButtonTap(e) {
 			var self=this;
 			if(e.index==0){
 				self.app.showOpen('chainReform/chainReformBill');
 			};
 		},
-		onLoad() {
+		onShow() {
 			var self=this;
 			self.get_data();
 		},
@@ -80,24 +85,25 @@
 					url: ('/pages/chainReform/chainReformDetail?id=' + this.dataList[i].id)
 				})
 			},
-			get_data:function(){
+			get_data:function(options){
+				if(!options) {
+					uni.showLoading({title: '加载中，请稍等'});
+				}
 				var self=this;
-				uni.showLoading({title: '获取中，请稍等'});
 				uni.request({
 					url: config.api_service + "/get.liangai.index",
 					data: {},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						console.log(res)
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.balance = res.data.data.balance;
-							console.log(res)
 						}else{
 							self.app._toast(res.data.message);
 						};
+						uni.stopPullDownRefresh()
 						uni.hideLoading();
 						self.isShow = true;
 					},
@@ -106,7 +112,7 @@
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};
-						console.log(JSON.stringify(res));
+						uni.stopPullDownRefresh()
 					},
 					complete: (res) => {}
 				});

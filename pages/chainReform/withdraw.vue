@@ -85,14 +85,13 @@
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						console.log(res)
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.balance = res.data.data.balance;
 							if(res.data.data.name) {
 								self.name = res.data.data.name;
-								self.bank_name = res.data.data.bank_name;
-								self.card_num = res.data.data.card_num;
+								self.bankName = res.data.data.bank_name;
+								self.cardNumber = res.data.data.card_num;
 							};
 						}else{
 							self.app._toast(res.data.message);
@@ -104,7 +103,6 @@
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};
-						console.log(JSON.stringify(res));
 					},
 					complete: (res) => {}
 				});
@@ -183,7 +181,6 @@
 							console.log("请求超时了");
 						};
 						this.status = false;
-						console.log(JSON.stringify(res));
 					},
 					complete: (res) => {
 						self.load=true;
