@@ -13,13 +13,10 @@
 			<view class="balance-cont flex-center flex-j-between bc-white">
 				<view class="cont text-center nowrap">
 					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月支出(人民币)</view>
-					<!-- <view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="data.out">658420.30700</view> -->
 					<view class="font-12 font-black">{{data.out}} CNY</view>
 				</view>
 				<view class="cont text-center nowrap">
 					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月收入(人民币)</view>
-					<!-- <view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="app._toFixed(data.in,2)">0.00</view> -->
-					<!-- <view class="font-12 font-black">≈{{app._accMul(data.in_cny,7)}} CNY</view> -->
 					<view class="font-12 font-black">{{data.in}} CNY</view>
 				</view>
 			</view>
@@ -30,13 +27,10 @@
 				<view class="cont-data">
 					<view class="flex-center flex-j-between">
 						<view class="one-row" v-text="item.amount"></view>
-						<view class="font-w-b nowrap" v-if="item.type_id == 1">充值</view>
-						<view class="font-w-b nowrap" v-else-if="item.type_id == 2">提现</view>
-						<view class="font-w-b nowrap" v-else="item.type_id == 3">月费转入</view>
+						<view class="font-w-b nowrap">{{item.remark}}</view>
 					</view>
 					<view class="flex-center flex-j-between mt-10">
 						<view class="font-12 font-light-gray nowrap" v-text="item.created_at"></view>
-						<!-- <view class="font-10 font-light-gray nowrap" :class="{'font-yellow':item.remark=='充值'}" v-text="item.remark">提现</view> -->
 					</view>
 				</view>
 			</view>
@@ -103,19 +97,7 @@
 				popSW:false,
 				coin_id:"",//交易币种id
 				type: 0,//1转入 2转出
-				type_list:[
-					{
-						name: '充值',
-						id: 1
-					},{
-						name: '提现',
-						id: 2
-					},
-					{
-						name: '月费转入',
-						id: 3
-					}
-				],
+				type_list:[],
 				type_id: 0,//类型id
 				min_money: 0,
 				timeSW:false,
@@ -132,7 +114,7 @@
 		onLoad() {
 			var self=this;
 			self.time=self.getTime(0);
-			// self.get_type();
+			self.get_type();
 			self.get_list();
 		},
 		onReachBottom(){//加载更多
@@ -180,10 +162,8 @@
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
-						console.log(res)
 						if (res.data.code == 200) {
 							self.data.in=res.data.data.month_in;
 							self.data.out=res.data.data.month_out;
@@ -191,7 +171,6 @@
 								var item=res.data.data.bills.data[i];
 								self.list.push(item);
 							};
-							console.log(self.list)
 							if(res.data.data.bills.data.length==0 || res.data.data.bills.data.length<self.count){
 								self.loadingType = 'nomore';
 							}else{
@@ -210,17 +189,16 @@
 				var self=this;
 				uni.showNavigationBarLoading();
 				uni.request({
-					url: config.api_service + "/get.bill.type",
+					url: config.api_service + "/get.bill.types",
 					data: {},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						// console.log(JSON.stringify(res));
+						console.log(res);
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
-							self.type_list=res.data.data.list;
-							
+							self.type_list=res.data.data;
 						}else{
 							self.app._toast(res.data.message);
 						};

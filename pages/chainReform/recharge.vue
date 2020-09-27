@@ -56,7 +56,7 @@
 						uni.hideLoading();
 						this.status = false;
 						uni.navigateTo({
-							url: ('/pages/market/pay?id=' + res.data.data)
+							url: ('/pages/chainReform/pay?id=' + res.data.data)
 						})
 					},
 					fail: (res) => {

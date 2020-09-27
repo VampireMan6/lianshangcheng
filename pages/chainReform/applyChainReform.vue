@@ -17,7 +17,7 @@
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">联系电话：</text>
 					<view class="flex-1">
-						<input placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
+						<input type="number" placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
 					</view>
 				</view>
 				<view class="cont-list flex-center" @click="chooseCity">
@@ -98,7 +98,7 @@
 			</view>
 		</scroll-view>
 		<view style="padding: 30rpx 30rpx 0;box-sizing: border-box;">
-			<button class="btn" @click="submit">确认生成合同</button>
+			<button class="btn" @click="submit">确认生成协议</button>
 		</view>
 		<mpvue-city-picker :themeColor="'#3D6AA1'" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValue" @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>

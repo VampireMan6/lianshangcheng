@@ -19,11 +19,13 @@
 		data() {
 			return {
 				money:"",
+				type: ''
 			}
 		},
 		onLoad(e) {
 			var self=this;
 			self.money=e.money;
+			self.type = e.type;
 		},
 		methods: {
 			goIndex:function(){
@@ -32,9 +34,15 @@
 				})
 			},
 			goOrder:function(){
-				uni.redirectTo({
-					url: '/pages/cart/order?type=0'
-				})
+				if(this.type == 'chongzhi') {
+					uni.switchTab({
+						url: '/pages/chainReform/chainReform'
+					})
+				}else {
+					uni.redirectTo({
+						url: '/pages/cart/order?type=0'
+					})
+				}
 			}
 		}
 	}

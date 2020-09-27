@@ -61,8 +61,6 @@
 			}
 		},
 		onPullDownRefresh() {
-			console.log(11111);
-			
 			this.get_data('loading');
 		},
 		onNavigationBarButtonTap(e) {
@@ -86,9 +84,6 @@
 				})
 			},
 			get_data:function(options){
-				if(!options) {
-					uni.showLoading({title: '加载中，请稍等'});
-				}
 				var self=this;
 				uni.request({
 					url: config.api_service + "/get.liangai.index",
@@ -100,15 +95,17 @@
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.balance = res.data.data.balance;
+							uni.setStorage({
+							  key: 'balanceNumber',
+							  data: self.balance
+							});
 						}else{
 							self.app._toast(res.data.message);
 						};
 						uni.stopPullDownRefresh()
-						uni.hideLoading();
 						self.isShow = true;
 					},
 					fail: (res) => {
-						uni.hideLoading();
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};

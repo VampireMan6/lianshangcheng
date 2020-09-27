@@ -483,10 +483,10 @@
 				"navigationBarTitleText": "链改须知"
 			}
 		},
-		{// 签署合同
+		{// 签署协议
 			"path": "pages/chainReform/contract",
 			"style": {
-				"navigationBarTitleText": "签署合同"
+				"navigationBarTitleText": "签署协议"
 			}
 		},
 		{//申请链改
@@ -495,10 +495,10 @@
 				"navigationBarTitleText": "申请链改"
 			}
 		},
-		{//合同摘要页
+		{//协议摘要页
 			"path": "pages/chainReform/applyChainReform1",
 			"style": {
-				"navigationBarTitleText": "合同摘要"
+				"navigationBarTitleText": "协议摘要"
 			}
 		},
 		{// 链改详情
@@ -515,6 +515,12 @@
 				"navigationBarTitleText": "链改账单",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/chainReform/pay",
+			"style": {
+				"navigationBarTitleText": "收银台"
 			}
 		}
 	],
@@ -540,16 +546,16 @@
 			"iconPath": "static/tab/category.png",
 			"selectedIconPath": "static/tab/category-active.png",
 			"text": "分类"
+		},{
+			"pagePath": "pages/chainReform/chainReform",
+			"iconPath": "static/tab/change.png",
+			"selectedIconPath": "static/tab/change-active.png",
+			"text": "链改"
 		}, {
 			"pagePath": "pages/cart/cart",
 			"iconPath": "static/tab/cart.png",
 			"selectedIconPath": "static/tab/cart-active.png",
 			"text": "购物车"
-		}, {
-			"pagePath": "pages/chainReform/chainReform",
-			"iconPath": "static/tab/change.png",
-			"selectedIconPath": "static/tab/change-active.png",
-			"text": "链改"
 		}, {
 			"pagePath": "pages/user/user",
 			"iconPath": "static/tab/user.png",

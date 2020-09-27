@@ -61,10 +61,34 @@
 						<input class="text-center font-18 font-w-b font-yellow" type="text" />
 					</view>
 				</view>
+				<view class="cont-list">
+					<view class="flex-center flex-j-between pt-20 pb-20">
+						<view class="flex-center">
+							<image class="mr-10" src="../../static/img/balance.png"></image>
+							余额支付
+						</view>
+						<radio value="BALANCE" color="#E52321"></radio>
+					</view>
+					<view class="Input-cont flex-center flex-j-between pb-10 hide">
+						<text class="one-row font-18 font-gray">￥</text>
+						<input class="text-center font-18 font-w-b font-yellow" type="text" />
+					</view>
+				</view>
 			</radio-group>	
 		</view>
 		<view class="bottom-cont flex-center">
 			<button class="btn" @click="goPay()" :disabled="disabled">立即支付{{money}}</button>
+		</view>
+		<view class="winPopup flex-center flex-j-center" v-if="paySW" @click="paySW=false">
+			<view class="payPass-content bc-white pt-25 pb-25 pl-25 pr-25" @click.stop="">
+				<view class="pay-Input">
+					<input class="font-14" type="password" placeholder="请输入交易密码" v-model="pass" maxlength="6" />
+				</view>
+				<view class="font-yellow text-right pt-5 font-12">
+					<text @click="app.showOpen('user/payPas?name=忘记支付密码')">忘记密码？</text>
+				</view>
+				<button class="btn mt-20" @click="goWithdraw">确定</button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -80,6 +104,11 @@
 				disabled:false,
 				type:"",
 				price:"",
+				paySW:false,
+				pass: '',
+				status: false,
+				balance: '',
+				moneyNumber: ''
 			}
 		},
 		onLoad(e) {
@@ -182,11 +211,18 @@
 				if(self.type==""){
 					return self.app._toast("请选中支付方式");
 				};
+				if(self.type == 'BALANCE') {
+					if(parseFloat(self.moneyNumber) > parseFloat(self.balance)){
+						this.app._toast("余额不足，请换个支付方式支付哦");
+						return;
+					};
+					self.paySW = true;
+					return;
+				};
 				var send={
 					trade_type:self.type,
 					out_trade_no:self.id
 				};
-				console.log(send);
 				if(self.disabled){
 					return;
 				};
@@ -210,16 +246,13 @@
 							};
 							uni.requestPayment({
 							    provider: provider,
-							    // orderInfo: JSON.stringify(res.data.data),
 							    orderInfo: (res.data.data),
 							    success: (res) => {
-									// console.log(res);
 									uni.redirectTo({
-									    url: '/pages/market/payResult?money='+self.money
+									    url: '/pages/market/payResult?money='+self.money + '&type=nochongzhi'
 									});
 							    },
-							    fail: (err) => { 
-									console.log(err)
+							    fail: (err) => {
 								}
 							});
 						}else{
@@ -246,10 +279,8 @@
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
- 						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
-						console.log(res)
 						if (res.data.code == 200) {
 							self.list=res.data.data;
 							self.money="";
@@ -257,6 +288,8 @@
 							self.list.forEach(function(item){
 								self.money=self.money+item.coin_name+':'+item.money+' ';
 								self.price=Number(item.money)+Number(self.price);
+								self.balance = item.balance;
+								self.moneyNumber = item.money;
 							});
 						}else{
 							self.app._toast(res.data.message);
@@ -268,7 +301,53 @@
 					fail: (res) => {console.log(JSON.stringify(res));},
 					complete: (res) => {}
 				});
-			}
+			},
+			goWithdraw() {
+				if(this.pass.trim().length<6){
+					this.app._toast("请输入正确的密码");
+					return;
+				};
+				if(!this.status) {
+					this.status = true;
+					this.goWithdraw1();
+				}
+			},
+			goWithdraw1:function(){
+				var self=this;
+				var send={
+					trade_type: self.type,
+					out_trade_no:self.id,
+					paypassword: self.pass
+				};
+				uni.showNavigationBarLoading();
+				uni.request({
+					url: config.api_service + "/post.pay",
+					data: send,
+					method: "post",
+					header: {Authorization: config.getToken()},
+					success: res => {
+						uni.hideNavigationBarLoading();
+						config.api_status(res);
+						this.status = false;
+						if (res.data.code == 200) {
+							uni.redirectTo({
+							    url: '/pages/market/payResult?money='+self.money + '&type=chongzhi'
+							});
+						}else{
+							self.app._toast(res.data.message);
+						};
+					},
+					fail: (res) => {
+						this.status = false;
+					},
+					complete: (res) => {
+						setTimeout(function(){
+							self.disabled=false;
+							this.status = false;
+						},2000);
+					}
+				});
+			},
 		}
 	}
 </script>
@@ -281,5 +360,5 @@
 	.cont-list .Input-cont{width: 100%;}
 	.cont-list .Input-cont input{width: 100%;}
 	.bottom-cont{position: fixed;z-index: 1;width: 100%;height: 50px;background-color: #FFFFFF;padding: 0px 15px;bottom: 0px;left: 0px;box-shadow:0px -3px 6px rgba(245,245,245,1);}
-	
+	@import url("@/common/css/withdraw1.css");
 </style>

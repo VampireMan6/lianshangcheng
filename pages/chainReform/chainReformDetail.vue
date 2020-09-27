@@ -4,6 +4,7 @@
 			<view class="base-data bc-white">
 				<view class="left flex-row flex-j-between" style="margin-bottom: 16rpx;">
 					<view>链改名称 : <text class="m-l-4">{{lg_name}}</text></view>
+					<view class="download" @tap='download'>下载协议</view>
 				</view>
 				<view class="right flex-row flex-j-between" style="margin-bottom: 16rpx;">
 					<view>链改金额 : <text class="m-l-4">{{amount | textAmount}}</text></view>
@@ -68,7 +69,9 @@
 				id: '',
 				replaceList: [],
 				monthfeeList: [],
-				isShow: false
+				isShow: false,
+				url: '',
+				status: false
 			}
 		},
 		filters: {
@@ -102,12 +105,12 @@
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						console.log(res)
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.lg_name = res.data.data.detail.lg_name;
 							self.lg_type = res.data.data.detail.lg_type;
 							self.amount = res.data.data.detail.amount;
+							self.url = res.data.data.detail.upload_url;
 							self.lg_date = res.data.data.detail.lg_date;
 							self.month_fee = res.data.data.detail.month_fee;
 							self.replaceList = res.data.data.replace;
@@ -123,10 +126,58 @@
 						if(res.errMsg == 'request:fail timeout'){
 							console.log("请求超时了");
 						};
-						console.log(JSON.stringify(res));
 					},
 					complete: (res) => {}
 				});
+			},
+			download() {
+				if(!this.status) {
+					this.status = true;
+					uni.showLoading({
+						title: '下载中',
+						mask: true
+					});
+					uni.downloadFile({
+					  url: this.url,
+					    success: (res) => {
+					      if (res.statusCode === 200) {
+									let tempFilePath = res.tempFilePath;
+									console.log(res.tempFilePath)
+										uni.saveFile({
+											tempFilePath: tempFilePath,
+											success: (res)=> {
+												uni.showToast({
+													icon: 'none',
+													mask: true,
+													title: '文件已保存：' + res.savedFilePath, //保存路径
+													duration: 3000,
+												});
+												setTimeout(() => {
+													uni.openDocument({
+														filePath: res.savedFilePath,
+														success: function(res) {
+															// console.log('打开文档成功');
+														}
+													});
+												}, 1000)
+											},
+											fail: (err)=> {
+												this.app._toast('下载失败');
+											}
+										});
+					      }else {
+									this.app._toast('下载失败');
+								}
+					    },
+							fail: (err) => {
+								this.app._toast('下载失败');
+							},
+							complete: (res) => {
+								this.status = false;
+								uni.hideLoading()
+							}
+					});
+				}
 			}
 			// get_list:function(){
 			// 	var self=this;
@@ -204,4 +255,6 @@
 	.cont-list .cont-data{width: calc(100% - 50px);}
 	.cont-list .cont-data .lvl{background-color: #221915;border-radius: 10px;line-height: 20px;padding: 0px 10px;margin-left: 10px;color: #E52321;font-size: 11px;}
 	.m-l-4 {margin-left: 16rpx;}
+	.download {background-color: rgb(26, 43, 90);color: #fff;border-radius: 8rpx;
+	padding: 4rpx 8rpx;font-size: 12px;}
 </style>
