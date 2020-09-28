@@ -28,7 +28,11 @@
 				</view>
 			</view>
 		</block>
-		<tki-qrcode ref="qrcode" :val="'https://h5.atbpt.com?InviteCode='+ userInfo.code" :size="300" background="#fff" foreground="#000" pdground="#000" :onval="true" :loadMake="true" :showLoading="false"  :show="false" unit="upx" @result="resultQrCode"></tki-qrcode>
+		<!-- <tki-qrcode ref="qrcode" :val="'https://h5.atbpt.com?InviteCode='+ userInfo.code" 
+		:size="300" background="#fff" foreground="#000" pdground="#000" :onval="true"
+		 :loadMake="true" :showLoading="false"  
+		 :show="false" unit="upx" 
+		 @result="resultQrCode"></tki-qrcode> -->
 		<block v-for="(item,index) in bgImgs" :key="index">
 			<canvas :canvas-id="'canvas' + index" class="canvas"></canvas>
 		</block>
@@ -36,15 +40,17 @@
 </template>
 
 <script>
-	import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue"
+	// import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue"
 	import SimpleCanvas from '@/common/js/SimpleCanvas.js';
+	import QR from "@/common/js/wxqrcode.js"
+	
 	import {
 		mapState,
 		mapMutations
 	} from 'vuex'
 	export default {
 		components: {
-			tkiQrcode
+			// tkiQrcode
 		},
 		computed:{
 			...mapState(["hasLogin",'userInfo']),
@@ -63,6 +69,14 @@
 			this.text = data.share_posters_copywriting;
 			this.bgImgs = data.share_posters_background;
 			uni.showNavigationBarLoading();
+			// uni.showToast({
+			// 	title: '海报生成中，请稍等...',
+			// 	icon: 'none',
+			// 	mask: true
+			// })
+		},
+		onReady() {
+			this.resultQrCode();
 		},
 		methods: {
 			previewImage(index){
@@ -75,7 +89,7 @@
 				this.current = e.target.value;
 			},
 			resultQrCode(qrcode) {
-				this.qrCodeImageSrc = qrcode;
+				// this.qrCodeImageSrc = qrcode;
 				this.bgImgs.forEach((item,index) => {
 					this.getImage(item,index);
 				});
@@ -121,7 +135,7 @@
 					top: top
 				}).drawImage({
 				    id: 'ercode',
-				    path: self.qrCodeImageSrc,
+				    path: QR.createQrCodeImg('https://h5.atbpt.com?InviteCode=' + self.userInfo.code, { size: parseInt(125) }),
 				    width: 125,
 					height: 125,
 					referLayer: {
@@ -165,6 +179,7 @@
 							self.hbImgs.push(success.tempFilePath);
 							if(self.hbImgs.length == self.bgImgs.length){
 								uni.hideNavigationBarLoading();
+								// uni.hideLoading();
 							}
 						},
 						fail() {}

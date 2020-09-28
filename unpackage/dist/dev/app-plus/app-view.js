@@ -20320,9 +20320,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components = {
-  tkiQrcode: __webpack_require__(/*! @/components/tki-qrcode/tki-qrcode.vue */ 350).default
-}
+var components
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -20494,23 +20492,14 @@ var render = function() {
           1
         )
       ],
-      _c("tki-qrcode", {
-        ref: "qrcode",
-        attrs: { _i: 22 },
-        on: {
-          result: function($event) {
-            return _vm.$handleViewEvent($event)
-          }
-        }
-      }),
-      _vm._l(_vm._$g(23, "f"), function(item, index, $21, $31) {
+      _vm._l(_vm._$g(22, "f"), function(item, index, $21, $31) {
         return [
           _c("v-uni-canvas", {
             key: item["k0"],
-            staticClass: _vm._$g("24-" + $31, "sc"),
+            staticClass: _vm._$g("23-" + $31, "sc"),
             attrs: {
-              "canvas-id": _vm._$g("24-" + $31, "a-canvas-id"),
-              _i: "24-" + $31
+              "canvas-id": _vm._$g("23-" + $31, "a-canvas-id"),
+              _i: "23-" + $31
             }
           })
         ]
@@ -20549,8 +20538,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! @/components/tki-qrcode/tki-qrcode.vue */ 350));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+
 {
 
   data: function data() {
@@ -20558,8 +20547,7 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! @/components/tki
       wxsProps: {} };
 
   },
-  components: {
-    'tkiQrcode': _tkiQrcode.default } };exports.default = _default;
+  components: {} };exports.default = _default;
 
 /***/ }),
 /* 408 */
