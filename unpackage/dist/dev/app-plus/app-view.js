@@ -28718,7 +28718,20 @@ var render = function() {
                   )
                 }),
                 1
-              )
+              ),
+              _vm._$g(28, "i")
+                ? _c(
+                    "v-uni-view",
+                    {
+                      staticStyle: {
+                        "text-align": "center",
+                        "margin-top": "32rpx"
+                      },
+                      attrs: { _i: 28 }
+                    },
+                    [_vm._v("什么都没有哦")]
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -30164,7 +30177,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
-                    [_vm._v("链改名称：")]
+                    [_vm._v("链改产品名称：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30172,8 +30185,7 @@ var render = function() {
                     [
                       _c("v-uni-input", {
                         attrs: {
-                          disabled: true,
-                          placeholder: "请填写链改名称",
+                          placeholder: "请填写链改产品名称",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 25
@@ -30897,7 +30909,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
-                        [_vm._v("链改名称：")]
+                        [_vm._v("链改产品名称：")]
                       ),
                       _c(
                         "v-uni-view",

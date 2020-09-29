@@ -32,7 +32,7 @@
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改名称：</text>
+						<text class="title one-row mr-20">链改产品名称：</text>
 						<view class="flex-1">
 							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
 						</view>
@@ -129,7 +129,7 @@
 				mobile: '',
 				region: {label: "请点击选择地址",value:[],cityCode:""},
 				address:"",
-				chainReformName: "链++区块链链改",
+				chainReformName: "",
 				chainReformNumber: '',
 				chainReformNumberMonth: '',
 				dataText1: '请点击选择链改类型',

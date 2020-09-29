@@ -133,8 +133,10 @@
 					borderRadius: 12,
 					left: left,
 					top: top
-				}).drawImage({
+				})
+				.drawImage({
 				    id: 'ercode',
+				    // path: self.qrCodeImageSrc,
 				    path: QR.createQrCodeImg('https://h5.atbpt.com?InviteCode=' + self.userInfo.code, { size: parseInt(125) }),
 				    width: 125,
 					height: 125,
@@ -143,7 +145,8 @@
 						top: -132,
 						left: -132
 					}
-				}).createCircleRectangle({
+				})
+				.createCircleRectangle({
 				    id: 'textWrap',
 				    backgroundColor: 'rgba(0,0,0,0.3)',
 				    width: 170,

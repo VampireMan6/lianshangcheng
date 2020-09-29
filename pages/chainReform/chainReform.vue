@@ -41,6 +41,7 @@
 					</view>
 				</view>
 			</view>
+			<view v-if="dataList.length == 0" style="text-align: center;margin-top: 32rpx;">什么都没有哦</view>
 		</view>
 	</view>
 </template>
@@ -95,6 +96,7 @@
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.balance = res.data.data.balance;
+							console.log(self.dataList)
 							uni.setStorage({
 							  key: 'balanceNumber',
 							  data: self.balance
