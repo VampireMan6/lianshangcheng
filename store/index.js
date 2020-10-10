@@ -50,6 +50,7 @@ const store = new Vuex.Store({
 			uni.setStorageSync("userInfo",info);
 		},
 		SetQiniu(state,info){//七牛云
+			uni.setStorageSync("qiniu",info);
 			state.qiniu=info;
 		},
 		SetCoin(state){//设置币种

@@ -9,7 +9,12 @@
 			</view>
 		</view>
 		<view class="content bc-white">
-			<view class="w-100 nowrap text-center pb-15">备注码:{{remark}}</view>
+			<view class="w-100 nowrap text-center pb-15">
+				<text style="border-radius: 10rpx;padding: 4rpx 8rpx;">备注码:{{remark}}</text>
+				<text style="background-color: #1a2b5a;font-size: 10px;color:#fff;
+				border-radius: 10rpx;padding: 4rpx 8rpx;margin-left: 30rpx;"
+				@tap="app._copy(remark)">复制</text>
+			</view>
 			<view class="code mb-30">
 				<image :src="images" style="width: 320upx;height: 320upx;" mode=""></image>
 				<!-- <tki-qrcode ref="qrcode" :val="address" 

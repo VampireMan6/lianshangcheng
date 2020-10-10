@@ -38,6 +38,12 @@
 						</view>
 					</view>
 					<view class="cont-list flex-center">
+						<text class="title one-row mr-20">上传产品图片：</text>
+						<view class="flex-1">
+							<image class="image" :src="portrait"></image>
+						</view>
+					</view>
+					<view class="cont-list flex-center">
 						<text class="title one-row mr-20">链改类型：</text>
 						<view class="flex-1">
 							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="dataText1" maxlength="20" />
@@ -150,7 +156,8 @@
 				isShow: false,
 				sn: '',
 				margin: '',
-				serviceCharge: ''
+				serviceCharge: '',
+				portrait: ''
 			}
 		},
 		methods: {
@@ -200,7 +207,6 @@
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
-							console.log(res);
 							self.name = res.data.data.name;
 							self.IdNumber = res.data.data.id_card;
 							self.mobile = res.data.data.mobile;
@@ -214,6 +220,7 @@
 							self.margin = res.data.data.margin;
 							self.dataText3 = res.data.data.day
 							self.sn = res.data.data.sn;
+							self.portrait = res.data.data.img;
 							self.status = false;
 							self.isShow = true;
 						}else{
@@ -233,4 +240,8 @@
 	.cont-list input{width: 100%;height: 100%;font-size: 14px;color: #333333;}
 	.flex-1 {flex: 1;}
 	input {width: 100%;}
+	.image {
+		width: 96rpx;
+		height: 96rpx;
+	}
 </style>

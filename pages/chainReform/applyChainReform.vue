@@ -37,6 +37,12 @@
 					</view>
 				</view>
 				<view class="cont-list flex-center">
+					<text class="title one-row mr-20">上传产品图片：</text>
+					<view class="flex-1">
+						<image class="image" :src="portrait" @click="choicePortrait"></image>
+					</view>
+				</view>
+				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改类型：</text>
 					<picker @change="select1" style="flex: 1" :value="index1" :range="dataList1">
 					  <view class="uni-input" style="width: 100%;">{{dataText1}}</view>
@@ -50,14 +56,17 @@
 				</view>
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改期限：</text>
-					<picker @change="select2" style="flex: 1" :value="index2" :range="dataList2">
+					<picker v-if="!isDisabled" :disabled="isDisabled" @change="select2" style="flex: 1" :value="index2" :range="dataList2">
 					  <view class="uni-input" style="width: 100%;">{{dataText2}}</view>
 					</picker>
+					<view v-else class="flex-1">
+						<input disabled placeholder="" placeholder-class="input-placeholder" value="12" maxlength="20" />
+					</view>
 				</view>
 				<view class="cont-list flex-center">
 					<text class="title one-row mr-20">链改月费：</text>
 					<view class="flex-1">
-						<input disabled="" type="number" placeholder="请填写链改月费"
+						<input disabled type="number" placeholder="请填写链改月费"
 						 placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
 					</view>
 				</view>
@@ -106,7 +115,12 @@
 
 <script>
 	import config from "@/common/js/config.js"
+	import upload from "@/common/js/upload.js"
 	import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue'
+	import {
+		mapState,
+	} from 'vuex'
+	
 	export default {
 		onLoad() {
 			const res = uni.getSystemInfoSync();
@@ -116,6 +130,7 @@
 			mpvueCityPicker
 		},
 		computed: {
+			...mapState(['qiniu']),
 			chainReformNumberMonth() {
 				if(this.chainReformNumber.trim() == '' || this.dataText2 == '请点击选择链改期限') {
 					return 0
@@ -145,6 +160,15 @@
 			},
 			addressText() {
 				return this.region.label + this.address;
+			},
+			isDisabled() {
+				if(this.dataText1 == '请点击选择链改类型') {
+					return false;
+				} else if (this.dataText1 == '讯改') {
+					return true;
+				}else {
+					return false
+				}
 			}
 		},
 		data() {
@@ -163,7 +187,7 @@
 				dataList1: ['车改','房改','讯改','消费改','旅游改','其他改'],
 				index1: 0,
 				dataText2: '请点击选择链改期限',
-				dataList2: ['12','24','36'],
+				dataList2: ['24','36'],
 				index2: 0,
 				dataText3: '请点击选择每月还款日期',
 				dataList3: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -173,10 +197,22 @@
 				province: '',
 				city: '',
 				county: '',
-				id: ''
+				id: '',
+				portrait:"../../static/img/addImg.png",
+				addressImg: ''
 			}
 		},
 		methods: {
+			choicePortrait:function(){
+				var self=this;
+				upload.upload(self.qiniu,function(res){
+					self.portrait=res.portrait;
+					self.addressImg=res.key;
+					self.app._toastIcon("上传成功");
+				},function(res){
+					self.app._toast(res);
+				});
+			},
 			select1(e) {
 			  this.index1 = e.target.value;
 				this.dataText1 = this.dataList1[this.index1];
@@ -234,6 +270,9 @@
 				if(!this.chainReformName.trim()) {
 					return this.app._toast('请输入链改名称')
 				};
+				if(this.portrait == '../../static/img/addImg.png') {
+					return this.app._toast('请上传产品图片')
+				};
 				if(this.dataText1 == '请点击选择链改类型') {
 					return this.app._toast('请选择链改类型')
 				};
@@ -248,6 +287,9 @@
 				// };
 				if(this.dataText3 == '请点击选择每月还款日期') {
 					return this.app._toast('请选择还款日期')
+				};
+				if(this.isDisabled == true) {
+					this.dataText2 = '12'
 				};
 				if(!this.status) {
 					this.status = true;
@@ -269,7 +311,8 @@
 					service_fee: parseFloat(self.serviceCharge),
 					is_once_pay: parseFloat(self.sex),
 					margin: parseFloat(self.margin),
-					day: self.dataText3
+					day: self.dataText3,
+					img: self.addressImg
 				};
 				uni.showNavigationBarLoading();
 				uni.request({
@@ -313,4 +356,8 @@
 	.cont-list input{width: 100%;height: 100%;font-size: 14px;color: #333333;}
 	.flex-1 {flex: 1;}
 	input {width: 100%;}
+	.image {
+		width: 96rpx;
+		height: 96rpx;
+	}
 </style>
