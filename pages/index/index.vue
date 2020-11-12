@@ -2,8 +2,9 @@
 	<view class="box">
 		<view class="tab-line"></view>
 		<view class="heade-cont flex-center flex-j-between pl-15">
-			<view class="cont flex-center font-14 font-w-b">
-				<image class="mr-10" mode="widthFix" src="../../static/img/e30e55bc56d0534e955888f0efc5a88.png"></image>链++
+			<view class="cont flex-center font-14 font-w-b" style="color: #FFFEFF;">
+				<image class="mr-10" style="border-radius: 50%;" mode="widthFix" src="../../static/img/cd1c607680e0d8d47b5e0f2494114f3.jpg"></image>
+				链++区块链数字平台
 			</view>
 			<view class="pr-20 pl-20" @click="app.showOpen('market/search')">
 				<image class="icon" mode="widthFix" src="../../static/img/search.png"></image>
@@ -18,7 +19,8 @@
 		</view>
 		<view class="pl-10 pr-10">
 			<view class="notice-cont flex-center flex-j-between pl-15 pr-15" @click="app.showOpen('index/notice')">
-				<image mode="widthFix" src="../../static/img/notice.png"></image>
+				<!-- <image mode="widthFix" src="../../static/img/notice.png"></image> -->
+				<text style="font-weight: 700;">公告</text>
 				<view class="cont flex-center nowrap">
 					<text class="tick font-10 font-white">推荐</text>
 					<swiper class="notice nowrap" autoplay="true" circular="true" interval="6000">
@@ -44,7 +46,8 @@
 			</view> -->
 			<view v-if="data.template_list&&data.template_list[0]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<text class="title font-16 font-w-b" v-text="data.template_list[0].title">店主推荐</text>
+					<view class="title font-16 font-w-b" style="background-color: #ff1e0a;border-radius: 12rpx;padding: 8rpx 16rpx;" 
+					v-text="data.template_list[0].title">店主推荐</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[0].title+'&id='+data.template_list[0].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>
@@ -64,7 +67,8 @@
 			</view>
 			<view v-if="data.template_list&&data.template_list[1]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<text class="title font-16 font-w-b" v-text="data.template_list[1].title">订购系列</text>
+					<view class="title font-16 font-w-b" v-text="data.template_list[1].title"
+					style="background-color: #ff1e0a;border-radius: 12rpx;padding: 8rpx 16rpx;">订购系列</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[1].title+'&id='+data.template_list[1].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>
@@ -188,6 +192,7 @@
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.data=res.data.data;
+							console.log(self.data)
 						}else{
 							console.log(JSON.stringify(res));
 							self.app._toast(res.data.message);

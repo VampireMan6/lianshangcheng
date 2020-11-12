@@ -38,7 +38,7 @@
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">上传产品图片：</text>
+						<text class="title one-row mr-20">上传链改消费凭据：</text>
 						<view class="flex-1">
 							<image class="image" :src="portrait"></image>
 						</view>
@@ -91,12 +91,12 @@
 							<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
 						</view>
 					</view>
-					<view class="cont-list flex-center">
+					<!-- <view class="cont-list flex-center">
 						<text class="title one-row mr-20">还款日期：</text>
 						<view class="flex-1">
 							<input disabled placeholder="请填写还款日期" placeholder-class="input-placeholder" v-model="dataText3" maxlength="20" />
 						</view>
-					</view>
+					</view> -->
 					<view class="cont-list flex-center">
 						<text class="title one-row mr-20">协议编码：</text>
 						<view class="flex-1">
@@ -218,7 +218,7 @@
 							self.chainReformNumberMonth = res.data.data.month_fee;
 							self.serviceCharge = res.data.data.service_fee;
 							self.margin = res.data.data.margin;
-							self.dataText3 = res.data.data.day
+							// self.dataText3 = res.data.data.day
 							self.sn = res.data.data.sn;
 							self.portrait = res.data.data.img;
 							self.status = false;

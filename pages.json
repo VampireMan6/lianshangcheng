@@ -321,7 +321,7 @@
 		}, {
 			"path": "pages/wallet/withdraw",
 			"style": {
-				"navigationBarTitleText": "提现",
+				"navigationBarTitleText": "转账",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -333,7 +333,7 @@
 		}, {
 			"path": "pages/wallet/transfer",
 			"style": {
-				"navigationBarTitleText": "转账",
+				"navigationBarTitleText": "互转",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -521,6 +521,57 @@
 			"path": "pages/chainReform/pay",
 			"style": {
 				"navigationBarTitleText": "收银台"
+			}
+		},
+		{
+			"path": "pages/wallet/exchange",
+			"style": {
+				"navigationBarTitleText": "兑换",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"fontSrc": "/static/iconfont.ttf",
+							"text": "\ue757",
+							"titleColor": "#FFFFFF",
+							"float": "right",
+							"fontSize": "18"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/wallet/duihuan1",
+			"style": {
+				"navigationBarTitleText": "兑换",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white"
+			}
+		}, 
+		{
+			"path": "pages/wallet/duihuan2",
+			"style": {
+				"navigationBarTitleText": "回兑",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white"
+			}
+		}, 
+		{
+			"path": "pages/wallet/duihuan3",
+			"style": {
+				"navigationBarTitleText": "回购",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/wallet/duihuanBill",
+			"style": {
+				"navigationBarTitleText": "账单",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white"
 			}
 		}
 	],

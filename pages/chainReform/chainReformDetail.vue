@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="nav-cont flex-center flex-j-around pb-25 pt-20">
-				<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1">代还记录</text>
+				<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1">链改消费</text>
 				<text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2">转出记录</text>
 			</view>
 			<view class="list-content">
@@ -27,7 +27,7 @@
 						<view v-else>{{item.deduct_date}}</view>
 					</view>
 					<view v-if="hierarchy == 1">
-						<view style="margin-bottom: 16rpx;">{{item.amount | textAmount}}(人民币)</view>
+						<view style="margin-bottom: 16rpx;">{{item.amount | textAmount}}</view>
 						<view style="text-align: end;" v-if="item.status == 1">已完成</view>
 						<view style="text-align: end;" v-else>待转入</view>
 					</view>

@@ -12,12 +12,12 @@
 			</view>
 			<view class="balance-cont flex-center flex-j-between bc-white">
 				<view class="cont text-center nowrap">
-					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月支出(人民币)</view>
-					<view class="font-12 font-black">{{data.out}} CNY</view>
+					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月支出</view>
+					<view class="font-12 font-black">{{data.out}} A</view>
 				</view>
 				<view class="cont text-center nowrap">
-					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月收入(人民币)</view>
-					<view class="font-12 font-black">{{data.in}} CNY</view>
+					<view class="font-12 font-light-gray" style="margin-bottom: 16rpx;">当月收入</view>
+					<view class="font-12 font-black">{{data.in}} A</view>
 				</view>
 			</view>
 		</view>

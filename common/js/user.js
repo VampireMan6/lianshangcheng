@@ -124,10 +124,10 @@ const user_register=function(mobile,code,pass1,pass2,invite,name,success,error){
  * @param {Function} 成功
  * @param {Function} 失败
  */
-const user_setPass=function(mobile,code,pass1,pass2,name,success,error){
-	if(!(name)){
-		return error(0, "请输入正确的用户名！");
-	};
+const user_setPass=function(mobile,code,pass1,pass2,success,error){
+	// if(!(name)){
+	// 	return error(0, "请输入正确的用户名！");
+	// };
 	if(!(mobile)){
 		return error(0, "请输入正确的手机号！");
 	};
@@ -142,7 +142,7 @@ const user_setPass=function(mobile,code,pass1,pass2,name,success,error){
 	};
 	let url=config.api_service + "/post.set.pay.password";
 	let send={
-		username:name,
+		// username:name,
 		mobile:mobile,
 		vcode:code,
 		pay_password:pass1,
@@ -184,10 +184,10 @@ const user_setPass=function(mobile,code,pass1,pass2,name,success,error){
  * @param {Function} 成功
  * @param {Function} 失败
  */
-const user_forget_pass=function(mobile,code,pass1,pass2,name,success,error){
-	if(!(name)){
-		return error(0, "请输入正确的用户名！");
-	};
+const user_forget_pass=function(mobile,code,pass1,pass2,success,error){
+	// if(!(name)){
+	// 	return error(0, "请输入正确的用户名！");
+	// };
 	if(!(mobile)){
 		return error(0, "请输入正确的手机号！");
 	};
@@ -202,7 +202,7 @@ const user_forget_pass=function(mobile,code,pass1,pass2,name,success,error){
 	};
 	let url=config.api_service + "/post.forget.password";
 	let send={
-		username:name,
+		// username:name,
 		mobile:mobile,
 		vcode:code,
 		password:pass1,

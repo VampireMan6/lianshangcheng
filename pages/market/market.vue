@@ -36,7 +36,7 @@
 						<text class="nowrap font-yellow">100.0000</text>
 						<text class="one-row ml-5">QSC</text>
 					</view>
-					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 CNY</view>
+					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 A</view>
 				</view>
 			</view>
 			<view class="cont-list">
@@ -47,7 +47,7 @@
 						<text class="nowrap font-yellow">100.0000</text>
 						<text class="one-row ml-5">QSC</text>
 					</view>
-					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 CNY</view>
+					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 A</view>
 				</view>
 			</view>
 			<view class="cont-list">
@@ -69,7 +69,7 @@
 						<text class="nowrap font-yellow">100.0000</text>
 						<text class="one-row ml-5">QSC</text>
 					</view>
-					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 CNY</view>
+					<view class="cny-price nowrap font-12 font-light-gray lh-20">≈20.00 A</view>
 				</view>
 			</view>
 		</view>

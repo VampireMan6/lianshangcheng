@@ -3,7 +3,7 @@
 		<view class="" v-if="isShow">
 			<view class="balance-cont text-center nowrap pt-15 pb-30 pl-15 pr-15">
 				<view class="flex-center flex-j-center font-white" style="opacity: 0.7;">
-					余额(人民币)
+					余额
 					<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
 				</view>
 				<view class="font-yellow font-24 font-w-b nowrap mt-10" v-text="eye?'******':balance">0</view>
@@ -96,7 +96,6 @@
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.balance = res.data.data.balance;
-							console.log(self.dataList)
 							uni.setStorage({
 							  key: 'balanceNumber',
 							  data: self.balance

@@ -12,7 +12,7 @@
 			<view class="pb-20">
 				<view class="pb-10">收款用户</view>
 				<view class="Input-cont flex-center flex-j-between">
-					<input type="text" placeholder="请输入用户名" v-model="mobile" />
+					<input type="number" placeholder="请输入手机号" maxlength="11" v-model="mobile" />
 					<!-- <i class="iconfont icon-icon_xinyong_xianxing_jijin-"></i> -->
 				</view>
 			</view>
@@ -113,14 +113,14 @@
 			},
 			goTransfer:function(){
 				var self=this;
-				// if(!self.app.checkMobile(self.mobile)){
-				// 	self.app._toast("请输入正确的电话号码");
-				// 	return;
-				// };
-				if(!(self.mobile)){
-					self.app._toast("请输入正确的邀请码");
+				if(!self.app.checkMobile(self.mobile)){
+					self.app._toast("请输入正确的电话号码");
 					return;
 				};
+				// if(!(self.mobile)){
+				// 	self.app._toast("请输入正确的邀请码");
+				// 	return;
+				// };
 				if(isNaN(self.number) || self.number<0){
 					self.app._toast("请输入正确的转账数量");
 					return;

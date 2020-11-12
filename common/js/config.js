@@ -28,6 +28,7 @@ export default {
 		};
 	},
 	api_status:function(res){
+		console.log(res)
 		var self=this;
 		if(res.data.code==20009 || res.data.code==10004){
 			uni.reLaunch({

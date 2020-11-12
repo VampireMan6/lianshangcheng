@@ -14,13 +14,13 @@
 				<view class="cont text-center nowrap">
 					<view class="font-12 font-light-gray">当月支出(链++)</view>
 					<view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="data.out">658420.30700</view>
-					<view class="font-12 font-black">≈{{data.out_cny}} CNY</view>
+					<view class="font-12 font-black">≈{{data.out_cny}} A</view>
 				</view>
 				<view class="cont text-center nowrap">
 					<view class="font-12 font-light-gray">当月收入(链++)</view>
 					<view class="font-16 font-w-b font-yellow pt-10 pb-10" v-text="app._toFixed(data.in,2)">0.00</view>
 					<!-- <view class="font-12 font-black">≈{{app._accMul(data.in_cny,7)}} CNY</view> -->
-					<view class="font-12 font-black">≈{{data.in_cny}} CNY</view>
+					<view class="font-12 font-black">≈{{data.in_cny}} A</view>
 				</view>
 			</view>
 		</view>

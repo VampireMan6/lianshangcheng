@@ -25,7 +25,7 @@
 					<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
 				</view>
 				<view class="font-yellow font-20 font-w-b nowrap mt-5" v-text="eye?'******':allMoney">0</view>
-				<view class="nowrap mt-5">≈{{eye?'******':allCny}} CNY</view>
+				<view class="nowrap mt-5">≈{{eye?'******':allCny}} A</view>
 			</view>
 			<view class="bill font-yellow font-10 font-w-b" @click="app.showOpen('wallet/bill')">进入</view>
 		</view>
@@ -83,11 +83,11 @@
 					</view>
 					<view class="font-12">收益明细</view>
 				</view>
-				<view class="text-center cont" @click="app._toast('暂未开放')"><!-- @click="app.showOpen('wallet/integral')" -->
+				<view class="text-center cont" @click="app.showOpen('wallet/exchange')"><!-- @click="app.showOpen('wallet/integral')" -->
 					<view class="pic">
 						<image style="width: 100%;height: 100%;" src="../../static/img/d9bdfdf212db7438ecf345e0a66ec9e.png"></image>
 					</view>
-					<view class="font-12">兑换链++</view>
+					<view class="font-12">兑换</view>
 				</view>
 				<view class="text-center cont" @click="app.showOpen('user/help')">
 					<view class="pic">

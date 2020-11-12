@@ -14,7 +14,7 @@
 				<view class="flex-center flex-j-between">
 					<view class="ct font-light-gray font-12 text-left nowrap">时间</view>
 					<view class="ct font-light-gray font-12 text-center nowrap">数量({{item.item}})</view>
-					<view class="ct font-light-gray font-12 text-right nowrap">总额(CNY)</view>
+					<view class="ct font-light-gray font-12 text-right nowrap">总额(A)</view>
 				</view>
 				<view class="flex-center flex-j-between pt-5">
 					<view class="ct font-12 text-left nowrap" v-text="item.created_at">00:00:00</view>

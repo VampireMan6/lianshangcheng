@@ -21,8 +21,8 @@
 			<text class="font-12 font-light-gray">共{{allcount}}人</text>
 		</view> -->
 		<view class="nav-cont flex-center flex-j-around pb-25 pt-20">
-			<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1;init();">我的直推</text>
-			<text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2;init();">我的间推</text>
+			<text class="nav-name" :class="{'active':hierarchy==1}" @click="init();">我的推荐</text>
+			<!-- <text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2;init();">我的间推</text> -->
 		</view>
 		<view class="list-content">
 			<view class="cont-list flex-center flex-j-between" v-for="(item,index) in list" :key="index" @click="app.showOpen('user/teamDetail?id='+item.user_id)">
@@ -147,9 +147,9 @@
 <style>
 	/* .box::after{position: absolute;top: 0px;left: 0px;width: 100%;height: 150px;background-color: #211817;content: "";} */
 	.nav-cont{width: 100%;position: relative;z-index: 1;}
-	.nav-cont .nav-name{color: #262626;font-size: 16px;position: relative;}
+	.nav-cont .nav-name{color: #262626;font-size: 16px;position: relative;width: 100%;}
 	.nav-cont .nav-name.active{color: #595959;font-weight: bold;font-size: 20px;}
-	.nav-cont .nav-name.active::after{position: absolute;bottom: -2px;width: 100%;height: 3px;left: 0px;background-color: #A99268;border-radius: 2px;content: "";}
+	/* .nav-cont .nav-name.active::after{position: absolute;bottom: -2px;width: 100%;height: 3px;left: 0px;background-color: #A99268;border-radius: 2px;content: "";} */
 	.base-data{width: 100%;border-radius: 4px;position: relative;padding: 16px;z-index: 1;box-shadow: 0px 2px 6px #E9E8E8;}
 	.base-data::after{position: absolute;top: 16px;left: 50%;height: calc(100% - 32px);width: 1px;background-color: #F5F5F5;content: "";}
 	.base-data .data-cont{width: 42%;}
