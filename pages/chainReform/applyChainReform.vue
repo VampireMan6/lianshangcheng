@@ -31,31 +31,31 @@
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改产品名称：</text>
+					<text class="title one-row mr-20">链惠通产品名称：</text>
 					<view class="flex-1">
-						<input placeholder="请填写链改产品名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
+						<input placeholder="请填写链惠通产品名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">上传链改消费凭据：</text>
+					<text class="title one-row mr-20">上传链惠通消费凭据：</text>
 					<view class="flex-1">
 						<image class="image" :src="portrait" @click="choicePortrait"></image>
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改类型：</text>
+					<text class="title one-row mr-20">链惠通类型：</text>
 					<picker @change="select1" style="flex: 1" :value="index1" :range="dataList1">
 					  <view class="uni-input" style="width: 100%;">{{dataText1}}</view>
 					</picker>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改金额：</text>
+					<text class="title one-row mr-20">链惠通金额：</text>
 					<view class="flex-1">
-						<input type="number" placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
+						<input type="number" placeholder="请填写链惠通金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改期限：</text>
+					<text class="title one-row mr-20">链惠通期限：</text>
 					<picker v-if="!isDisabled" :disabled="isDisabled" @change="select2" style="flex: 1" :value="index2" :range="dataList2">
 					  <view class="uni-input" style="width: 100%;">{{dataText2}}</view>
 					</picker>
@@ -64,16 +64,16 @@
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改月费：</text>
+					<text class="title one-row mr-20">链惠通月费：</text>
 					<view class="flex-1">
-						<input disabled type="number" placeholder="请填写链改月费"
+						<input disabled type="number" placeholder="请填写链惠通月费"
 						 placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
 					</view>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改服务费：</text>
+					<text class="title one-row mr-20">链惠通服务费：</text>
 					<view class="flex-1">
-						<input disabled placeholder="请填写链改服务费" 
+						<input disabled placeholder="请填写链惠通服务费" 
 						placeholder-class="input-placeholder" 
 						v-model="serviceCharge" maxlength="20" />
 					</view>
@@ -92,9 +92,9 @@
 					</radio-group>
 				</view>
 				<view class="cont-list flex-center">
-					<text class="title one-row mr-20">链改保证金：</text>
+					<text class="title one-row mr-20">链惠通保证金：</text>
 					<view class="flex-1">
-						<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
+						<input disabled placeholder="请填写链惠通保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
 					</view>
 				</view>
 				<!-- <view class="cont-list flex-center">
@@ -135,15 +135,15 @@
 		},
 		computed: {
 			...mapState(['qiniu']),
-			chainReformNumberMonth() { // 链改月费
-				if(this.chainReformNumber.trim() == '' || this.dataText2 == '请点击选择链改期限') {
+			chainReformNumberMonth() { // 链惠通月费
+				if(this.chainReformNumber.trim() == '' || this.dataText2 == '请点击选择链惠通期限') {
 					return 0
 				}else {
 					return (parseFloat(this.chainReformNumber) / parseFloat(this.dataText2)).toFixed(2)
 				}
 			},
 			serviceCharge() { // 服务费
-				if(this.dataText2 == '请点击选择链改期限') {
+				if(this.dataText2 == '请点击选择链惠通期限') {
 					return 0
 				}else if(this.index2 == 0) {// 24  7倍
 					return (this.chainReformNumberMonth * 7).toFixed(2)
@@ -166,7 +166,7 @@
 				return this.region.label + this.address;
 			},
 			isDisabled() {
-				if(this.dataText1 == '请点击选择链改类型') {
+				if(this.dataText1 == '请点击选择链惠通类型') {
 					return false;
 				} else if (this.dataText1 == '讯改') {
 					return true;
@@ -187,10 +187,10 @@
 				chainReformName: "",
 				chainReformNumber: '',
 				// chainReformNumberMonth: '',
-				dataText1: '请点击选择链改类型',
+				dataText1: '请点击选择链惠通类型',
 				dataList1: ['车改','房改','讯改','消费改','旅游改','其他改'],
 				index1: 0,
-				dataText2: '请点击选择链改期限',
+				dataText2: '请点击选择链惠通期限',
 				dataList2: ['24','36'],
 				index2: 0,
 				dataText3: 1,
@@ -224,7 +224,7 @@
 					this.dataText2 = '12';
 					this.index2 = 2;
 				}else {
-					this.dataText2 = '请点击选择链改期限';
+					this.dataText2 = '请点击选择链惠通期限';
 					this.index2 = 0;
 				};
 			},
@@ -279,22 +279,22 @@
 					return this.app._toast('请输入详细地址')
 				};
 				if(!this.chainReformName.trim()) {
-					return this.app._toast('请输入链改名称')
+					return this.app._toast('请输入链惠通名称')
 				};
 				if(this.portrait == '../../static/img/addImg.png') {
 					return this.app._toast('请上传产品图片')
 				};
-				if(this.dataText1 == '请点击选择链改类型') {
-					return this.app._toast('请选择链改类型')
+				if(this.dataText1 == '请点击选择链惠通类型') {
+					return this.app._toast('请选择链惠通类型')
 				};
 				if(!this.chainReformNumber.trim()) {
-					return this.app._toast('请输入链改金额')
+					return this.app._toast('请输入链惠通金额')
 				};
-				if(this.dataText2 == '请点击选择链改期限') {
-					return this.app._toast('请选择链改期限')
+				if(this.dataText2 == '请点击选择链惠通期限') {
+					return this.app._toast('请选择链惠通期限')
 				};
 				// if(!this.chainReformNumberMonth.trim()) {
-				// 	return this.app._toast('请输入链改月费')
+				// 	return this.app._toast('请输入链惠通月费')
 				// };
 				// if(this.dataText3 == '请点击选择每月还款日期') {
 				// 	return this.app._toast('请选择还款日期')

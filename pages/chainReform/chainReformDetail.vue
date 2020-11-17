@@ -3,12 +3,12 @@
 		<view class="" v-if="isShow">
 			<view class="base-data bc-white">
 				<view class="left flex-row flex-j-between" style="margin-bottom: 16rpx;">
-					<view>链改名称 : <text class="m-l-4">{{lg_name}}</text></view>
+					<view>链惠通名称 : <text class="m-l-4">{{lg_name}}</text></view>
 					<view class="download" @tap='download'>下载协议</view>
 				</view>
 				<view class="right flex-row flex-j-between" style="margin-bottom: 16rpx;">
-					<view>链改金额 : <text class="m-l-4">{{amount | textAmount}}</text></view>
-					<view>链改类型 : <text class="m-l-4">{{lg_type}}</text></view>
+					<view>链惠通金额 : <text class="m-l-4">{{amount | textAmount}}</text></view>
+					<view>链惠通类型 : <text class="m-l-4">{{lg_type}}</text></view>
 				</view>
 				<view class="right flex-row flex-j-between">
 					<view>期限 : <text class="m-l-4">{{lg_date}}</text></view>
@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="nav-cont flex-center flex-j-around pb-25 pt-20">
-				<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1">链改消费</text>
+				<text class="nav-name" :class="{'active':hierarchy==1}" @click="hierarchy=1">链惠通消费</text>
 				<text class="nav-name" :class="{'active':hierarchy==2}" @click="hierarchy=2">转出记录</text>
 			</view>
 			<view class="list-content">

@@ -2,8 +2,8 @@
 	<view class="box">
 		<view class="tab-line"></view>
 		<view class="heade-cont flex-center flex-j-between pl-15">
-			<view class="cont flex-center font-14 font-w-b" style="color: #FFFEFF;">
-				<image class="mr-10" style="border-radius: 50%;" mode="widthFix" src="../../static/img/cd1c607680e0d8d47b5e0f2494114f3.jpg"></image>
+			<view class="cont flex-center font-w-b" style="color: #FFFEFF;font-size: 40rpx;">
+				<image class="mr-10" style="border-radius: 50%;" mode="widthFix" src="../../static/img/lianLogo.png"></image>
 				链++区块链数字平台
 			</view>
 			<view class="pr-20 pl-20" @click="app.showOpen('market/search')">
@@ -46,7 +46,7 @@
 			</view> -->
 			<view v-if="data.template_list&&data.template_list[0]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16 font-w-b" style="background-color: #ff1e0a;border-radius: 12rpx;padding: 8rpx 16rpx;" 
+					<view class="title font-16 " style="background-color: #f94d2f;border-radius: 12rpx;padding: 8rpx 16rpx;color: #fdddc3;" 
 					v-text="data.template_list[0].title">店主推荐</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[0].title+'&id='+data.template_list[0].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
@@ -67,8 +67,8 @@
 			</view>
 			<view v-if="data.template_list&&data.template_list[1]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16 font-w-b" v-text="data.template_list[1].title"
-					style="background-color: #ff1e0a;border-radius: 12rpx;padding: 8rpx 16rpx;">订购系列</view>
+					<view class="title font-16" v-text="data.template_list[1].title"
+					style="background-color: #f94d2f;border-radius: 12rpx;padding: 8rpx 16rpx;color: #fdddc3;">订购系列</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[1].title+'&id='+data.template_list[1].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>

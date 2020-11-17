@@ -32,63 +32,63 @@
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改产品名称：</text>
+						<text class="title one-row mr-20">链惠通产品名称：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
+							<input disabled placeholder="请填写链惠通名称" placeholder-class="input-placeholder" v-model="chainReformName" maxlength="20" />
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">上传链改消费凭据：</text>
+						<text class="title one-row mr-20">上传链惠通消费凭据：</text>
 						<view class="flex-1">
 							<image class="image" :src="portrait"></image>
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改类型：</text>
+						<text class="title one-row mr-20">链惠通类型：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改名称" placeholder-class="input-placeholder" v-model="dataText1" maxlength="20" />
+							<input disabled placeholder="请填写链惠通名称" placeholder-class="input-placeholder" v-model="dataText1" maxlength="20" />
 						</view>
 					</view>
 					<!-- <view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改类型：</text>
+						<text class="title one-row mr-20">链惠通类型：</text>
 						<picker @change="select1" style="flex: 1" :value="index1" :range="dataList1">
 						  <view class="uni-input" style="width: 100%;">{{dataText1}}</view>
 						</picker>
 					</view> -->
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改金额：</text>
+						<text class="title one-row mr-20">链惠通金额：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
+							<input disabled placeholder="请填写链惠通金额" placeholder-class="input-placeholder" v-model="chainReformNumber" maxlength="20" />
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改期限：</text>
+						<text class="title one-row mr-20">链惠通期限：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改期限" placeholder-class="input-placeholder" v-model="dataText2" maxlength="20" />
+							<input disabled placeholder="请填写链惠通期限" placeholder-class="input-placeholder" v-model="dataText2" maxlength="20" />
 						</view>
 					</view>
 					<!-- <view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改期限：</text>
+						<text class="title one-row mr-20">链惠通期限：</text>
 						<picker @change="select2" style="flex: 1" :value="index2" :range="dataList2">
 						  <view class="uni-input" style="width: 100%;">{{dataText2}}</view>
 						</picker>
 					</view> -->
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改月费：</text>
+						<text class="title one-row mr-20">链惠通月费：</text>
 						<view class="flex-1">
-							<input disabled type="number" placeholder="请填写链改月费" placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
+							<input disabled type="number" placeholder="请填写链惠通月费" placeholder-class="input-placeholder" v-model="chainReformNumberMonth" maxlength="20" />
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改服务费：</text>
+						<text class="title one-row mr-20">链惠通服务费：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改服务费" placeholder-class="input-placeholder" v-model="serviceCharge" maxlength="20" />
+							<input disabled placeholder="请填写链惠通服务费" placeholder-class="input-placeholder" v-model="serviceCharge" maxlength="20" />
 						</view>
 					</view>
 					<view class="cont-list flex-center">
-						<text class="title one-row mr-20">链改保证金：</text>
+						<text class="title one-row mr-20">链惠通保证金：</text>
 						<view class="flex-1">
-							<input disabled placeholder="请填写链改保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
+							<input disabled placeholder="请填写链惠通保证金" placeholder-class="input-placeholder" v-model="margin" maxlength="20" />
 						</view>
 					</view>
 					<!-- <view class="cont-list flex-center">
@@ -138,10 +138,10 @@
 				chainReformName: "",
 				chainReformNumber: '',
 				chainReformNumberMonth: '',
-				dataText1: '请点击选择链改类型',
+				dataText1: '请点击选择链惠通类型',
 				dataList1: ['车改','房改','讯改','消费改','旅游改','其他改'],
 				index1: 0,
-				dataText2: '请点击选择链改期限',
+				dataText2: '请点击选择链惠通期限',
 				dataList2: ['12','24','36'],
 				index2: 0,
 				dataText3: '请点击选择每月还款日期',

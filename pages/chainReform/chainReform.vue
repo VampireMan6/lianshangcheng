@@ -24,9 +24,9 @@
 				</view>
 			</view>
 			<view class="pb-15" style="display:flex;justify-content: space-between;">
-				<text class="title font-16 font-w-b">我的链改</text>
+				<text class="title font-16 font-w-b">我的链惠通</text>
 				<text class="title font-16 font-w-b" 
-				style="background-color: #1a2b5a;color:#fff;border-radius: 10rpx;padding: 8rpx 12rpx;" @click="app.showOpen('chainReform/Notice')">申请链改</text>
+				style="background-color: #1a2b5a;color:#fff;border-radius: 10rpx;padding: 8rpx 12rpx;" @click="app.showOpen('chainReform/Notice')">申请链惠</text>
 			</view>
 			<view class="list-content">
 				<view class="cont-list flex-center flex-j-between"

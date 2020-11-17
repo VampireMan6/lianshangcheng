@@ -310,7 +310,7 @@ var render = function() {
             "v-uni-view",
             {
               staticClass: _vm._$g(3, "sc"),
-              staticStyle: { color: "#FFFEFF" },
+              staticStyle: { color: "#FFFEFF", "font-size": "40rpx" },
               attrs: { _i: 3 }
             },
             [
@@ -454,9 +454,10 @@ var render = function() {
                         {
                           staticClass: _vm._$g(20, "sc"),
                           staticStyle: {
-                            "background-color": "#ff1e0a",
+                            "background-color": "#f94d2f",
                             "border-radius": "12rpx",
-                            padding: "8rpx 16rpx"
+                            padding: "8rpx 16rpx",
+                            color: "#fdddc3"
                           },
                           attrs: { _i: 20 },
                           domProps: {
@@ -601,9 +602,10 @@ var render = function() {
                         {
                           staticClass: _vm._$g(34, "sc"),
                           staticStyle: {
-                            "background-color": "#ff1e0a",
+                            "background-color": "#f94d2f",
                             "border-radius": "12rpx",
-                            padding: "8rpx 16rpx"
+                            padding: "8rpx 16rpx",
+                            color: "#fdddc3"
                           },
                           attrs: { _i: 34 },
                           domProps: {
@@ -16495,7 +16497,7 @@ var render = function() {
                   _c(
                     "v-uni-view",
                     { staticClass: _vm._$g(59, "sc"), attrs: { _i: 59 } },
-                    [_vm._v("兑换")]
+                    [_vm._v("链付通")]
                   )
                 ],
                 1
@@ -28632,7 +28634,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
-                    [_vm._v("我的链改")]
+                    [_vm._v("我的链惠通")]
                   ),
                   _c(
                     "v-uni-text",
@@ -28651,7 +28653,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("申请链改")]
+                    [_vm._v("申请链惠")]
                   )
                 ],
                 1
@@ -30173,7 +30175,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(23, "sc"), attrs: { _i: 23 } },
-                    [_vm._v("链改产品名称：")]
+                    [_vm._v("链惠通产品名称：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30181,7 +30183,7 @@ var render = function() {
                     [
                       _c("v-uni-input", {
                         attrs: {
-                          placeholder: "请填写链改产品名称",
+                          placeholder: "请填写链惠通产品名称",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 25
@@ -30207,7 +30209,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
-                    [_vm._v("上传链改消费凭据：")]
+                    [_vm._v("上传链惠通消费凭据：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30235,7 +30237,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(31, "sc"), attrs: { _i: 31 } },
-                    [_vm._v("链改类型：")]
+                    [_vm._v("链惠通类型：")]
                   ),
                   _c(
                     "v-uni-picker",
@@ -30275,7 +30277,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(35, "sc"), attrs: { _i: 35 } },
-                    [_vm._v("链改金额：")]
+                    [_vm._v("链惠通金额：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30284,7 +30286,7 @@ var render = function() {
                       _c("v-uni-input", {
                         attrs: {
                           type: "number",
-                          placeholder: "请填写链改金额",
+                          placeholder: "请填写链惠通金额",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 37
@@ -30310,7 +30312,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(39, "sc"), attrs: { _i: 39 } },
-                    [_vm._v("链改期限：")]
+                    [_vm._v("链惠通期限：")]
                   ),
                   _vm._$g(40, "i")
                     ? _c(
@@ -30369,7 +30371,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(45, "sc"), attrs: { _i: 45 } },
-                    [_vm._v("链改月费：")]
+                    [_vm._v("链惠通月费：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30379,7 +30381,7 @@ var render = function() {
                         attrs: {
                           disabled: true,
                           type: "number",
-                          placeholder: "请填写链改月费",
+                          placeholder: "请填写链惠通月费",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 47
@@ -30405,7 +30407,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(49, "sc"), attrs: { _i: 49 } },
-                    [_vm._v("链改服务费：")]
+                    [_vm._v("链惠通服务费：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30414,7 +30416,7 @@ var render = function() {
                       _c("v-uni-input", {
                         attrs: {
                           disabled: true,
-                          placeholder: "请填写链改服务费",
+                          placeholder: "请填写链惠通服务费",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 51
@@ -30502,7 +30504,7 @@ var render = function() {
                   _c(
                     "v-uni-text",
                     { staticClass: _vm._$g(62, "sc"), attrs: { _i: 62 } },
-                    [_vm._v("链改保证金：")]
+                    [_vm._v("链惠通保证金：")]
                   ),
                   _c(
                     "v-uni-view",
@@ -30511,7 +30513,7 @@ var render = function() {
                       _c("v-uni-input", {
                         attrs: {
                           disabled: true,
-                          placeholder: "请填写链改保证金",
+                          placeholder: "请填写链惠通保证金",
                           "placeholder-class": "input-placeholder",
                           maxlength: "20",
                           _i: 64
@@ -30912,7 +30914,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
-                        [_vm._v("链改产品名称：")]
+                        [_vm._v("链惠通产品名称：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -30921,7 +30923,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改名称",
+                              placeholder: "请填写链惠通名称",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 22
@@ -30947,7 +30949,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
-                        [_vm._v("上传链改消费凭据：")]
+                        [_vm._v("上传链惠通消费凭据：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -30970,7 +30972,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(28, "sc"), attrs: { _i: 28 } },
-                        [_vm._v("链改类型：")]
+                        [_vm._v("链惠通类型：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -30979,7 +30981,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改名称",
+                              placeholder: "请填写链惠通名称",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 30
@@ -31005,7 +31007,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(32, "sc"), attrs: { _i: 32 } },
-                        [_vm._v("链改金额：")]
+                        [_vm._v("链惠通金额：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -31014,7 +31016,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改金额",
+                              placeholder: "请填写链惠通金额",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 34
@@ -31040,7 +31042,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
-                        [_vm._v("链改期限：")]
+                        [_vm._v("链惠通期限：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -31049,7 +31051,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改期限",
+                              placeholder: "请填写链惠通期限",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 38
@@ -31075,7 +31077,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
-                        [_vm._v("链改月费：")]
+                        [_vm._v("链惠通月费：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -31085,7 +31087,7 @@ var render = function() {
                             attrs: {
                               disabled: true,
                               type: "number",
-                              placeholder: "请填写链改月费",
+                              placeholder: "请填写链惠通月费",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 42
@@ -31111,7 +31113,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(44, "sc"), attrs: { _i: 44 } },
-                        [_vm._v("链改服务费：")]
+                        [_vm._v("链惠通服务费：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -31120,7 +31122,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改服务费",
+                              placeholder: "请填写链惠通服务费",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 46
@@ -31146,7 +31148,7 @@ var render = function() {
                       _c(
                         "v-uni-text",
                         { staticClass: _vm._$g(48, "sc"), attrs: { _i: 48 } },
-                        [_vm._v("链改保证金：")]
+                        [_vm._v("链惠通保证金：")]
                       ),
                       _c(
                         "v-uni-view",
@@ -31155,7 +31157,7 @@ var render = function() {
                           _c("v-uni-input", {
                             attrs: {
                               disabled: true,
-                              placeholder: "请填写链改保证金",
+                              placeholder: "请填写链惠通保证金",
                               "placeholder-class": "input-placeholder",
                               maxlength: "20",
                               _i: 50
@@ -31453,7 +31455,7 @@ var render = function() {
                         "v-uni-view",
                         { attrs: { _i: 4 } },
                         [
-                          _vm._v("链改名称 :"),
+                          _vm._v("链惠通名称 :"),
                           _c(
                             "v-uni-text",
                             { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
@@ -31490,7 +31492,7 @@ var render = function() {
                         "v-uni-view",
                         { attrs: { _i: 8 } },
                         [
-                          _vm._v("链改金额 :"),
+                          _vm._v("链惠通金额 :"),
                           _c(
                             "v-uni-text",
                             { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
@@ -31503,7 +31505,7 @@ var render = function() {
                         "v-uni-view",
                         { attrs: { _i: 10 } },
                         [
-                          _vm._v("链改类型 :"),
+                          _vm._v("链惠通类型 :"),
                           _c(
                             "v-uni-text",
                             {
@@ -31576,7 +31578,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("链改消费")]
+                    [_vm._v("链惠通消费")]
                   ),
                   _c(
                     "v-uni-text",

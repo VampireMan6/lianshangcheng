@@ -87,7 +87,7 @@
 					<view class="pic">
 						<image style="width: 100%;height: 100%;" src="../../static/img/d9bdfdf212db7438ecf345e0a66ec9e.png"></image>
 					</view>
-					<view class="font-12">兑换</view>
+					<view class="font-12">链付通</view>
 				</view>
 				<view class="text-center cont" @click="app.showOpen('user/help')">
 					<view class="pic">

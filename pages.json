@@ -437,10 +437,10 @@
 				"navigationBarTitleText": "添加银行卡"
 			}
 		},
-		{//链改
+		{//链惠通
 			"path": "pages/chainReform/chainReform",
 			"style": {
-				"navigationBarTitleText": "链改",
+				"navigationBarTitleText": "链惠通",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": true,
@@ -480,7 +480,7 @@
 		{//申请须知
 			"path": "pages/chainReform/Notice",
 			"style": {
-				"navigationBarTitleText": "链改须知"
+				"navigationBarTitleText": "链惠通须知"
 			}
 		},
 		{// 签署协议
@@ -489,10 +489,10 @@
 				"navigationBarTitleText": "签署协议"
 			}
 		},
-		{//申请链改
+		{//申请链惠
 			"path": "pages/chainReform/applyChainReform",
 			"style": {
-				"navigationBarTitleText": "申请链改"
+				"navigationBarTitleText": "申请链惠"
 			}
 		},
 		{//协议摘要页
@@ -501,10 +501,10 @@
 				"navigationBarTitleText": "协议摘要"
 			}
 		},
-		{// 链改详情
+		{// 链惠通详情
 			"path": "pages/chainReform/chainReformDetail",
 			"style": {
-				"navigationBarTitleText": "链改详情",
+				"navigationBarTitleText": "链惠通详情",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -512,7 +512,7 @@
 		{
 			"path": "pages/chainReform/chainReformBill",
 			"style": {
-				"navigationBarTitleText": "链改账单",
+				"navigationBarTitleText": "链惠通账单",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -601,7 +601,7 @@
 			"pagePath": "pages/chainReform/chainReform",
 			"iconPath": "static/tab/change.png",
 			"selectedIconPath": "static/tab/change-active.png",
-			"text": "链改"
+			"text": "链惠通"
 		}, {
 			"pagePath": "pages/cart/cart",
 			"iconPath": "static/tab/cart.png",
