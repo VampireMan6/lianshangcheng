@@ -101,7 +101,9 @@
 				uni.showLoading({title: '获取中，请稍等'});
 				uni.request({
 					url: config.api_service + "/get.user.property",
-					data: {},
+					data: {
+						type: 1
+					},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {

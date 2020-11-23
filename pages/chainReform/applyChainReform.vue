@@ -14,12 +14,12 @@
 						<input placeholder="请填写身份证号" placeholder-class="input-placeholder" v-model="IdNumber" maxlength="18" />
 					</view>
 				</view>
-				<view class="cont-list flex-center">
+				<!-- <view class="cont-list flex-center">
 					<text class="title one-row mr-20">联系电话：</text>
 					<view class="flex-1">
 						<input type="number" placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
 					</view>
-				</view>
+				</view> -->
 				<view class="cont-list flex-center" @click="chooseCity">
 					<text class="title one-row mr-20">联系地址：</text>
 					<view class="nowrap flex-1">{{region.label}}</view>
@@ -265,13 +265,13 @@
 				if(!reg1.test(this.IdNumber.trim())) {
 					return this.app._toast('身份证号码格式错误')
 				}
-				if(!this.mobile.trim()) {
-					return this.app._toast('请输入联系电话')
-				};
-				let reg2 = /^1(3|4|5|6|7|8|9)\d{9}$/;
-				if(!reg2.test(this.mobile.trim())) {
-					return this.app._toast('手机号格式错误')
-				}
+				// if(!this.mobile.trim()) {
+				// 	return this.app._toast('请输入联系电话')
+				// };
+				// let reg2 = /^1(3|4|5|6|7|8|9)\d{9}$/;
+				// if(!reg2.test(this.mobile.trim())) {
+				// 	return this.app._toast('手机号格式错误')
+				// }
 				if(this.region.label == '请点击选择地址') {
 					return this.app._toast('请选择联系地址')
 				};
@@ -312,7 +312,7 @@
 				var send = {
 					name: self.name,
 					id_card: self.IdNumber,
-					mobile: self.mobile,
+					// mobile: self.mobile,
 					address: self.addressText,
 					lg_name: self.chainReformName,
 					lg_type: self.dataText1,

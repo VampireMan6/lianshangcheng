@@ -3,7 +3,7 @@
 		<view class="tab-line"></view>
 		<view class="heade-cont flex-center flex-j-between pl-15">
 			<view class="cont flex-center font-w-b" style="color: #FFFEFF;font-size: 40rpx;">
-				<image class="mr-10" style="border-radius: 50%;" mode="widthFix" src="../../static/img/lianLogo.png"></image>
+				<image class="mr-10" style="border-radius: 50%;width: 72rpx;height: 72rpx;" mode="widthFix" src="../../static/img/lian.png"></image>
 				链++区块链数字平台
 			</view>
 			<view class="pr-20 pl-20" @click="app.showOpen('market/search')">
@@ -46,12 +46,12 @@
 			</view> -->
 			<view v-if="data.template_list&&data.template_list[0]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16 " style="background-color: #f94d2f;border-radius: 12rpx;padding: 8rpx 16rpx;color: #fdddc3;" 
-					v-text="data.template_list[0].title">店主推荐</view>
+					<view class="title font-16 " v-text="data.template_list[0].title">店主推荐</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[0].title+'&id='+data.template_list[0].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>
 				</view>
+				
 				<view class="elect-content">
 					<view class="cont-list mr-15" v-for="(item,index) in data.template_list[0].list" :key="index" @click="app.showOpen('market/details?id='+item.id)">
 						<image :src="item.thumb"></image>
@@ -67,13 +67,25 @@
 			</view>
 			<view v-if="data.template_list&&data.template_list[1]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16" v-text="data.template_list[1].title"
-					style="background-color: #f94d2f;border-radius: 12rpx;padding: 8rpx 16rpx;color: #fdddc3;">订购系列</view>
+					<view class="title font-16" v-text="data.template_list[1].title">订购系列</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[1].title+'&id='+data.template_list[1].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>
 				</view>
-				<view class="plate-cont" v-for="(item,index) in data.template_list[1].list" :key="index" v-if="index==0" @click="app.showOpen('market/details?id='+item.id)">
+				
+				<view class="elect-content">
+					<view class="cont-list mr-15" v-for="(item,index) in data.template_list[1].list" :key="index" @click="app.showOpen('market/details?id='+item.id)">
+						<image :src="item.thumb"></image>
+						<view class="pl-10 pr-10 pt-10 pb-15">
+							<view class="name nowrap mb-10 font-14" v-text="item.title">草莓水果沙拉超级无底好吃</view>
+							<view class="price nowrap font-14 flex-center">
+								<text class="nowrap font-yellow" v-text="item.shop_price">100.0000</text>
+								<text class="one-row ml-5" v-text="item.coin_name">QSC</text>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!-- <view class="plate-cont" v-for="(item,index) in data.template_list[1].list" :key="index" v-if="index==0" @click="app.showOpen('market/details?id='+item.id)">
 					<image :src="item.thumb"></image>
 					<view class="pl-10 pr-10 pt-10 pb-15">
 						<view class="nowrap font-14 flex-center flex-j-between">
@@ -82,10 +94,9 @@
 						</view>
 						<view class="nowrap font-14 flex-center flex-j-between mt-5">
 							<view class="ct nowrap font-11 font-light-gray" v-text="item.subtitle">副标题 副标题 副标题 副标题 副标题</view>
-							<!-- <view class="ct nowrap font-12 font-light-gray">≈{{app._accMul(item.shop_price,item.rate_cny)}} CNY</view> -->
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view v-if="data.template_list&&data.template_list[2]">
 				<view class="flex-center flex-j-between mt-30 mb-20">

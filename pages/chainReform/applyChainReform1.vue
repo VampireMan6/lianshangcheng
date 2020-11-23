@@ -15,12 +15,12 @@
 							<input disabled placeholder="请填写身份证号" placeholder-class="input-placeholder" v-model="IdNumber" maxlength="18" />
 						</view>
 					</view>
-					<view class="cont-list flex-center">
+					<!-- <view class="cont-list flex-center">
 						<text class="title one-row mr-20">联系电话：</text>
 						<view class="flex-1">
 							<input disabled placeholder="请填写联系电话" placeholder-class="input-placeholder" v-model="mobile" maxlength="11" />
 						</view>
-					</view>
+					</view> -->
 					<!-- <view class="cont-list flex-center" @click="chooseCity">
 						<text class="title one-row mr-20">联系地址：</text>
 						<view class="nowrap flex-1">{{region.label}}</view>

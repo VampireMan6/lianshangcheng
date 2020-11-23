@@ -526,7 +526,7 @@
 		{
 			"path": "pages/wallet/exchange",
 			"style": {
-				"navigationBarTitleText": "兑换",
+				"navigationBarTitleText": "链付通",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white",
 				"app-plus": {
@@ -545,7 +545,7 @@
 		{
 			"path": "pages/wallet/duihuan1",
 			"style": {
-				"navigationBarTitleText": "兑换",
+				"navigationBarTitleText": "链兑银",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -553,7 +553,7 @@
 		{
 			"path": "pages/wallet/duihuan2",
 			"style": {
-				"navigationBarTitleText": "回兑",
+				"navigationBarTitleText": "银兑链",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -561,7 +561,7 @@
 		{
 			"path": "pages/wallet/duihuan3",
 			"style": {
-				"navigationBarTitleText": "回购",
+				"navigationBarTitleText": "卖出",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
 			}
@@ -572,6 +572,20 @@
 				"navigationBarTitleText": "账单",
 				"navigationBarBackgroundColor": "#1A2B5A",
 				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/wallet/shenqingshiwu",
+			"style": {
+				"navigationBarTitleText": "申请实物",
+				"navigationBarBackgroundColor": "#1A2B5A",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/user/shiming",
+			"style": {
+				"navigationBarTitleText": "实名认证"
 			}
 		}
 	],
@@ -594,20 +608,28 @@
 			"text": "首页"
 		}, {
 			"pagePath": "pages/market/category",
-			"iconPath": "static/tab/category.png",
-			"selectedIconPath": "static/tab/category-active.png",
-			"text": "分类"
+			"iconPath": "static/tab/lianqitong1.png",
+			"selectedIconPath": "static/tab/lianqitong0.png",
+			"text": "链企通"
 		},{
 			"pagePath": "pages/chainReform/chainReform",
 			"iconPath": "static/tab/change.png",
 			"selectedIconPath": "static/tab/change-active.png",
 			"text": "链惠通"
-		}, {
-			"pagePath": "pages/cart/cart",
-			"iconPath": "static/tab/cart.png",
-			"selectedIconPath": "static/tab/cart-active.png",
-			"text": "购物车"
-		}, {
+		}, 
+		{
+			"pagePath": "pages/wallet/exchange",
+			"iconPath": "static/tab/lianfutong1.png",
+			"selectedIconPath": "static/tab/lianfutong0.png",
+			"text": "链付通"
+		}, 
+		// {
+		// 	"pagePath": "pages/cart/cart",
+		// 	"iconPath": "static/tab/cart.png",
+		// 	"selectedIconPath": "static/tab/cart-active.png",
+		// 	"text": "链付通"
+		// }, 
+		{
 			"pagePath": "pages/user/user",
 			"iconPath": "static/tab/user.png",
 			"selectedIconPath": "static/tab/user-active.png",

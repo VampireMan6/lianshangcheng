@@ -57,12 +57,14 @@
 				coinMsg: {}, // 币种信息
 				dataList: [], // 资产列表 下拉框
 				dataListCopy: [],
-				coinList: []
+				coinList: [],
+				isNoshiming: false
 			}
 		},
 		onLoad() {
 			var self=this;
 			self.get_data();
+			self.get_shiming();
 		},
 		filters: {
 			textFixTwo(val) {
@@ -99,12 +101,41 @@
 				self.number="";
 				self.memo="";
 			},
+			get_shiming:function(){
+				var self=this;
+				uni.request({
+					url: config.api_service + "/get.certification.detail",
+					data: {},
+					method: "get",
+					header: {Authorization: config.getToken()},
+					success: res => {
+						config.api_status(res);
+						if (res.data.code == 200) {
+							if(res.data.data.status !== 1) {
+								this.isNoshiming = true;
+							}
+						}else{
+							self.app._toast(res.data.message);
+						};
+					},
+					fail: (res) => {
+						uni.hideLoading();
+						if(res.errMsg == 'request:fail timeout'){
+							console.log("请求超时了");
+						};
+						console.log(JSON.stringify(res));
+					},
+					complete: (res) => {}
+				});
+			},
 			get_data:function(){
 				var self=this;
 				uni.showLoading({title: '获取中，请稍等'});
 				uni.request({
 					url: config.api_service + "/get.user.property",
-					data: {},
+					data: {
+						type: 3
+					},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
@@ -131,6 +162,20 @@
 				});
 			},
 			submit() {
+				if(this.isNoshiming) {
+					uni.showModal({
+					   title: '提示',
+					   content: '实名认证通过后才可以进行回购哦',
+					   success: (res)=> {
+					     if (res.confirm) {
+					          this.app.showOpen('user/shiming')
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+					return
+				};
 				if(!this.number.trim()) {
 					this.app._toast('回购数量不能为空');
 					return

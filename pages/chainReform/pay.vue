@@ -48,7 +48,7 @@
 						<input class="text-center font-18 font-w-b font-yellow" type="text" />
 					</view>
 				</view>
-				<view class="cont-list">
+				<!-- <view class="cont-list">
 					<view class="flex-center flex-j-between pt-20 pb-20">
 						<view class="flex-center">
 							<image class="mr-10" src="../../static/img/c0684daffd689c1850ca783bf4f87e8.png"></image>
@@ -60,7 +60,7 @@
 						<text class="one-row font-18 font-gray">￥</text>
 						<input class="text-center font-18 font-w-b font-yellow" type="text" />
 					</view>
-				</view>
+				</view> -->
 			</radio-group>	
 		</view>
 		<view class="bottom-cont flex-center">

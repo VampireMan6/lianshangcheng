@@ -10,15 +10,19 @@
 		<view class="nav-cont flex-center flex-j-around bc-white mb-25">
 			<view class="text-center" @click="app.showOpen('wallet/duihuan1')">
 				<image src="../../static/img/c41e0ba6a9e8861ef50609a1e6b94a0.png"></image>
-				<view class="font-12 pt-10">兑换</view>
+				<view class="font-12 pt-10">链兑银</view>
 			</view>
 			<view class="text-center" @click="app.showOpen('wallet/duihuan2')">
 				<image src="../../static/img/96bf6ca2775d0a187ab81fafac04105.png"></image>
-				<view class="font-12 pt-10">回兑</view>
+				<view class="font-12 pt-10">银兑链</view>
 			</view>
 			<view class="text-center" @click="app.showOpen('wallet/duihuan3')">
 				<image src="../../static/img/addb9abc141fc4b77ef3fed0ef21ac7.png"></image>
-				<view class="font-12 pt-10">回购</view>
+				<view class="font-12 pt-10">卖出</view>
+			</view>
+			<view class="text-center" @click="app.showOpen('market/details?id=421')">
+				<image src="../../static/img/addb9abc141fc4b77ef3fed0ef21ac7.png"></image>
+				<view class="font-12 pt-10">买入</view>
 			</view>
 		</view>
 		<view class="pb-15">
@@ -28,7 +32,11 @@
 			<view class="cont-list flex-center flex-j-between" v-for="(item,index) in dataList" :key="index">
 				<view class="cont-data flex-center flex-j-between">
 					<view class="">{{item.currency_name}}</view>
-					<view class="">{{item.balance | text}}克(g)</view>
+					<view class="">
+					{{item.balance | text}}克(g)
+					<text @click="enterShenqingshiwu(item)" 
+					style='padding: 4rpx 8rpx;margin-left: 16rpx;font-size: 12px;color: #FFFFFF;background-color: #1a2b5a;border-radius: 8rpx;'>实物申请</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -46,7 +54,9 @@
 			return {
 				eye:false,
 				dataList: [],
-				amount: 0
+				amount: 0,
+				addressList: [],
+				addressId: []
 			}
 		},
 		onNavigationBarButtonTap(e) {
@@ -58,6 +68,7 @@
 		onShow() {
 			var self=this;
 			self.get_data();
+			self.get_address();
 		},
 		filters: {
 			text(val) {
@@ -96,7 +107,50 @@
 					},
 					complete: (res) => {}
 				});
-			}
+			},
+			enterShenqingshiwu(item) {
+				uni.setStorage({
+				    key: 'shenqingshuwu',
+				    data: {
+							item,
+							addressList: this.addressList,
+							addressId: this.addressId
+						}
+				});
+				this.app.showOpen('wallet/shenqingshiwu');
+			},
+			get_address:function(options){
+				var self=this;
+				uni.request({
+					url: config.api_service + "/get.user.address",
+					data: {},
+					method: "get",
+					header: {Authorization: config.getToken()},
+					success: res => {
+						config.api_status(res);
+						if (res.data.code == 200) {
+							let list = res.data.data;
+							if(list.length == 0) {
+								self.addressList = [];
+							}else {
+								list.forEach((item,i)=> {
+									self.addressList[i] = `${item.province} ${item.city} ${item.county} ${item.address}`;
+									self.addressId[i] = item.id;
+									console.log(self.addressList)
+								})
+							};
+						}else{
+							self.app._toast(res.data.message);
+						};
+					},
+					fail: (res) => {
+						if(res.errMsg == 'request:fail timeout'){
+						};
+						uni.stopPullDownRefresh()
+					},
+					complete: (res) => {}
+				});
+			},
 		}
 	}
 </script>

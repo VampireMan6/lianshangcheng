@@ -105,7 +105,9 @@
 				uni.showLoading({title: '获取中，请稍等'});
 				uni.request({
 					url: config.api_service + "/get.user.property",
-					data: {},
+					data: {
+						type: 2
+					},
 					method: "get",
 					header: {Authorization: config.getToken()},
 					success: res => {
@@ -139,7 +141,6 @@
 				this.paySW  = true;
 			},
 			goWithdraw:function(){
-				
 				var self=this;
 				if(!self.paypassword.trim()){
 					self.app._toast("请输入密码");

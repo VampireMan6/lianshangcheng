@@ -7,6 +7,13 @@
 			</view>
 			<i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 		</view>
+		<view class="cont flex-center flex-j-between" @click="app.showOpen('user/shiming')">
+			<view class="flex-center">
+				<image mode="widthFix" src="../../static/img/ca9577b1945e87c12cf72fd89d25910.png"></image>
+				<text class="one-row ml-10">实名认证</text>
+			</view>
+			<i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
+		</view>
 		<view class="cont flex-center flex-j-between" @click="app.showOpen('market/address')">
 			<view class="flex-center">
 				<image mode="widthFix" src="../../static/img/f037edcdaa5ac9df652e6dabfb8350e.png"></image>
