@@ -4,7 +4,7 @@
 			<view class="data-cont">
 				<view class="font-w-b font-16 font-black">团队总业绩</view>
 				<view class="nowrap font-10 flex-center pt-10">
-					<text class="font-light-gray">链++：</text>
+					<!-- <text class="font-light-gray">链++：</text> -->
 					<text class="font-yellow" v-text="team_invest">0</text>
 				</view>
 			</view>

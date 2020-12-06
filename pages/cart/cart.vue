@@ -18,9 +18,16 @@
 								<text v-for="(ktem,kndex) in JSON.parse(jtem.spec)" :key="kndex">{{ktem.name+': '+ktem.value.title}}</text>
 							</view>
 							<view class="price-cont flex-center flex-center flex-j-between nowrap mt-20">
-								<view class="price flex-center nowrap font-12 font-w-b">
-									<text class="font-yellow nowrap" v-text="jtem.shop_price">100.0000</text>
-									<text class="one-row ml-5" v-text="jtem.coin_name">QSC</text>
+								<view class="price nowrap font-12 font-w-b">
+									<view class="">
+										<text class="font-yellow nowrap" v-text="jtem.shop_price">100.0000</text>
+										<text class="one-row ml-5" v-text="jtem.coin_name">QSC</text>
+									</view>
+									<view v-if="jtem.ljj_amount>0">
+										<text>或</text>
+										<text class="font-yellow nowrap ml-5">{{parseFloat(jtem.ljj_amount).toFixed(2)}}</text>
+										<text class="one-row ml-5">链++</text>
+									</view>
 								</view>
 								<view class="handle flex-center nowrap" @click.stop="" v-if="numSW">
 									<view class="one-row" @click="jtem.buy_num=(jtem.buy_num==1?1:jtem.buy_num-1);modifyNumber(jtem.cart_id,jtem.buy_num);">

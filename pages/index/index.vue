@@ -46,7 +46,7 @@
 			</view> -->
 			<view v-if="data.template_list&&data.template_list[0]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16 " v-text="data.template_list[0].title">店主推荐</view>
+					<view class="title font-16 font-w-b" v-text="data.template_list[0].title">店主推荐</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[0].title+'&id='+data.template_list[0].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>
@@ -67,7 +67,7 @@
 			</view>
 			<view v-if="data.template_list&&data.template_list[1]">
 				<view class="flex-center flex-j-between mt-30 mb-20">
-					<view class="title font-16" v-text="data.template_list[1].title">订购系列</view>
+					<view class="title font-16 font-w-b" v-text="data.template_list[1].title">订购系列</view>
 					<view class="flex-center font-12" @click="app.showOpen('market/searchResult?type=seller_cat_id&name='+data.template_list[1].title+'&id='+data.template_list[1].id)">
 						<text class="font-light-gray">更多</text><i class="iconfont icon-you font-light-gray ml-5 font-20"></i>
 					</view>

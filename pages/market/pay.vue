@@ -2,6 +2,9 @@
 	<view class="box">
 		<view class="pay-price pt-25 pb-25 text-center">
 			<view class="font-25 font-w-b font-yellow nowrap" v-text="money">￥66.80</view>
+			<view class="font-25 font-w-b font-yellow nowrap" v-if="is_lii_amount">或 链++: 
+				<text>{{parseFloat(lii_amount_total).toFixed(2)}}</text>
+			</view>
 			<view class="font-11 font-light-gray nowrap mt-5">下单后请尽快付款</view><!-- 剩余：23小时58分钟 -->
 		</view>
 		<view class="pl-15 pr-15 list-content">
@@ -74,10 +77,24 @@
 						<input class="text-center font-18 font-w-b font-yellow" type="text" />
 					</view>
 				</view>
+				<view class="cont-list" v-if="is_lii_amount">
+					<view class="flex-center flex-j-between pt-20 pb-20">
+						<view class="flex-center">
+							<image class="mr-10" src="../../static/img/lianimg.png"></image>
+							链++({{parseFloat(lii_amount_total).toFixed(2)}})
+						</view>
+						<radio value="LJJ" color="#E52321"></radio>
+					</view>
+					<view class="Input-cont flex-center flex-j-between pb-10 hide">
+						<text class="one-row font-18 font-gray">￥</text>
+						<input class="text-center font-18 font-w-b font-yellow" type="text" />
+					</view>
+				</view>
 			</radio-group>	
 		</view>
 		<view class="bottom-cont flex-center">
-			<button class="btn" @click="goPay()" :disabled="disabled">立即支付{{money}}</button>
+			<button v-if="type != 'LJJ'" class="btn" @click="goPay()" :disabled="disabled">立即支付{{money}}</button>
+			<button v-else class="btn" @click="goPay()" :disabled="disabled">立即支付链++{{lii_amount_total}}</button>
 		</view>
 		<view class="winPopup flex-center flex-j-center" v-if="paySW" @click="paySW=false">
 			<view class="payPass-content bc-white pt-25 pb-25 pl-25 pr-25" @click.stop="">
@@ -108,7 +125,10 @@
 				pass: '',
 				status: false,
 				balance: '',
-				moneyNumber: ''
+				moneyNumber: '',
+				lii_amount_total: 0,
+				is_lii_amount: false,
+				ljj_balance: 0 //链++ 余额
 			}
 		},
 		onLoad(e) {
@@ -118,7 +138,7 @@
 			uni.getProvider({
 			    service: 'payment',
 			    success: function (res) {
-			        console.log(res)
+			        // console.log(res)
 			        // if (~res.provider.indexOf('qq')) {
 			        //     uni.login({
 			        //         provider: 'qq',
@@ -129,7 +149,7 @@
 			        // }
 			    }
 			});
-			console.log()
+
 		},
 		methods: {
 			radioChange:function(evt){
@@ -219,6 +239,14 @@
 					self.paySW = true;
 					return;
 				};
+				if(self.type == 'LJJ') {
+					if(parseFloat(self.lii_amount_total) > parseFloat(self.ljj_balance)){
+						this.app._toast("链++余额不足，请换个支付方式支付哦");
+						return;
+					};
+					self.paySW = true;
+					return;
+				};
 				var send={
 					trade_type:self.type,
 					out_trade_no:self.id
@@ -290,7 +318,14 @@
 								self.price=Number(item.money)+Number(self.price);
 								self.balance = item.balance;
 								self.moneyNumber = item.money;
+								self.lii_amount_total += item.lii_amount;
+								self.ljj_balance = item.ljj_balance;
 							});
+							if(parseFloat(self.lii_amount_total) > 0) {
+								self.is_lii_amount = true;
+							}else{
+								self.is_lii_amount = false;
+							}
 						}else{
 							self.app._toast(res.data.message);
 							setTimeout(function(){

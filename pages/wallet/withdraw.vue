@@ -16,12 +16,6 @@
 					<i class="iconfont icon-icon_xinyong_xianxing_jijin-" @click="get_address()"></i>
 				</view>
 			</view>
-			<view class="pb-20">
-				<view class="pb-10">备注码</view>
-				<view class="Input-cont flex-center flex-j-between">
-					<input type="text" placeholder="请输入备注码" v-model="memo" />
-				</view>
-			</view>
 			<!-- withdraw_fee_type:1固定费用 2 固定费率-->
 			<view class="pb-20" v-if="data.withdraw_fee_type==1">
 				<view class="pb-10 flex-center flex-j-between">
@@ -49,17 +43,24 @@
 			</view>
 			<view class="pb-20">
 				<view class="pb-10 flex-center flex-j-between">
-					<text class="one-row">提现数量</text>
+					<text class="one-row">转账数量</text>
 					<view class="nowrap font-12 font-light-gray">{{data.name}} 可用：{{data.other.Money}}</view>
 				</view>
 				<view class="Input-cont flex-center flex-j-between">
-					<input type="text" placeholder="请输入提现金额" v-model="number" />
+					<input type="number" placeholder="请输入转账金额" v-model="number" />
 					<text class="one-row font-12 font-yellow" @click="number=data.other.Money">全部</text>
 				</view>
 			</view>
-			<button class="btn mt-10 mb-30" @click="paySW=true">确认提现</button>
+			<view class="font-12 pb-20" style="text-align: right;">预计到账: {{daozhangNumber}}</view>
+			<view class="pb-20">
+				<view class="pb-10">备注码</view>
+				<view class="Input-cont flex-center flex-j-between">
+					<input type="text" placeholder="请输入备注码" v-model="memo" />
+				</view>
+			</view>
+			<button class="btn mt-10 mb-30" @click="tixian">确认转账</button>
 			<view class="font-12 pb-10">温馨提示：</view>
-			<view class="font-12 pl-20 lh-25 newlines">请勿提现{{data.name}}以外的地址</view>
+			<view class="font-12 pl-20 lh-25 newlines">请勿转账{{data.name}}以外的地址</view>
 			<view class="font-12 pl-20 lh-25 newlines">最低1 {{data.name}}起提</view>
 		</view>
 		<view class="winPopup flex-center flex-j-center" v-if="paySW" @click="paySW=false">
@@ -92,6 +93,7 @@
 				pass:"",
 				paySW:false,
 				load:true,
+				showDaozhang: false
 			}
 		},
 		onLoad() {
@@ -100,6 +102,22 @@
 		},
 		computed:{
 			...mapState(["hasLogin",'userInfo','allCoin']),
+			daozhangNumber() {
+				if(this.data.withdraw_fee_type==1) { // 固定费率
+					if(this.number > 0) {
+						return this.number - this.data.withdraw_fee;
+					}else {
+						return 0
+					}
+				}else {
+					let number = this.app._accMul(this.number,this.data.withdraw_rate)>this.data.min_withdraw_fee?this.app._accMul(this.number,this.data.withdraw_rate):this.data.min_withdraw_fee;
+					if(this.number > 0) {
+						return this.number - number;
+					}else {
+						return 0
+					}
+				}
+			}
 		},
 		methods: {
 			...mapMutations(["SetCoin"]),
@@ -118,20 +136,42 @@
 				self.number="";
 				self.memo="";
 			},
-			goWithdraw:function(){
+			tixian() {
 				var self=this;
-				if(isNaN(self.number) || self.number<0 || self.number.trim().length==0){
-					self.app._toast("请输入正确的提现数量");
-					return;
-				};
-				if(Number(self.number) < Number(self.data.min_withdraw)){
-					self.app._toast("最少提现"+self.data.min_withdraw);
-					return;
-				};
+				console.log(self.data.other.Money);
+				console.log(self.number)
 				if(self.address.trim().length==0){
 					self.app._toast("请输入地址");
 					return;
 				};
+				if(isNaN(self.number) || self.number<0 || self.number.trim().length==0){
+					self.app._toast("请输入正确的转账数量");
+					return;
+				};
+				if(parseFloat(self.number) > parseFloat(self.data.other.Money)){
+					self.app._toast("提币数量不能超过可用数");
+					return;
+				};
+				if(Number(self.number) < Number(self.data.min_withdraw)){
+					self.app._toast("最少转账"+self.data.min_withdraw);
+					return;
+				};
+				this.paySW = true;
+			},
+			goWithdraw:function(){
+				var self=this;
+				// if(isNaN(self.number) || self.number<0 || self.number.trim().length==0){
+				// 	self.app._toast("请输入正确的转账数量");
+				// 	return;
+				// };
+				// if(Number(self.number) < Number(self.data.min_withdraw)){
+				// 	self.app._toast("最少转账"+self.data.min_withdraw);
+				// 	return;
+				// };
+				// if(self.address.trim().length==0){
+				// 	self.app._toast("请输入地址");
+				// 	return;
+				// };
 				if(self.pass.trim().length<6){
 					self.app._toast("请输入正确的密码");
 					return;
@@ -144,7 +184,7 @@
 					paypassword:self.pass,
 				};
 				if(!self.load){
-					self.app._toast("正在提现中，请不要重复点击");
+					self.app._toast("正在转账中，请不要重复点击");
 					return console.log("重复点击");
 				}
 				self.load=false;

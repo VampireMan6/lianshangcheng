@@ -168,8 +168,8 @@
 			isDisabled() {
 				if(this.dataText1 == '请点击选择链惠通类型') {
 					return false;
-				} else if (this.dataText1 == '讯改') {
-					return true;
+				} else if (this.dataText1 == '讯惠通') {
+					return true;h
 				}else {
 					return false
 				}
@@ -188,7 +188,7 @@
 				chainReformNumber: '',
 				// chainReformNumberMonth: '',
 				dataText1: '请点击选择链惠通类型',
-				dataList1: ['车改','房改','讯改','消费改','旅游改','其他改'],
+				dataList1: ['车惠通','房惠通','讯惠通','消惠通','旅惠通','其他'],
 				index1: 0,
 				dataText2: '请点击选择链惠通期限',
 				dataList2: ['24','36'],
@@ -220,7 +220,7 @@
 			select1(e) {
 			  this.index1 = e.target.value;
 				this.dataText1 = this.dataList1[this.index1];
-				if(this.dataText1 == '讯改') {
+				if(this.dataText1 == '讯惠通') {
 					this.dataText2 = '12';
 					this.index2 = 2;
 				}else {

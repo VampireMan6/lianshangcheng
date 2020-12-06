@@ -33,7 +33,7 @@
 				<view class="cont-data flex-center flex-j-between">
 					<view class="">{{item.currency_name}}</view>
 					<view class="">
-					{{item.balance | text}}克(g)
+					{{item.balance | text}}枚(1枚35g)
 					<text @click="enterShenqingshiwu(item)" 
 					style='padding: 4rpx 8rpx;margin-left: 16rpx;font-size: 12px;color: #FFFFFF;background-color: #1a2b5a;border-radius: 8rpx;'>实物申请</text>
 					</view>
@@ -165,7 +165,7 @@
 	.list-content .cont-list:last-child{border-bottom: 0px;}
 	.cont-list image{width: 24px;height: 24px;border-radius: 50%;}
 	.cont-list .cont-data{width: 100%;position: relative;}
-	.cont-list .cont-data::after{position: absolute;left: 50%;top: 10%;width: 1px;height: 80%;background-color: #F5F5F5;content: "";}
+	/* .cont-list .cont-data::after{position: absolute;left: 50%;top: 10%;width: 1px;height: 80%;background-color: #F5F5F5;content: "";} */
 	.cont-list .cont-data .cont{width: 45%;}
 	.cont-list .cont-data .cont .vl{width: 100%;position: relative;padding-left: 10px;}
 	.cont-list .cont-data .cont .vl::after{position: absolute;left: 0px;top: 50%;height: 2px;width: 2px;display: inline-block;border-radius: 50%;background-color: #BD9E70;content: "";}

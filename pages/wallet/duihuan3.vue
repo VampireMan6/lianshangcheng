@@ -11,10 +11,10 @@
 				<view class="pb-10 flex-center flex-j-between">
 					<view class="one-row">回购数量  
 					<text style="font-size: 20rpx;margin-left: 30rpx;">{{numberXiaoHao}}</text></view>
-					<view class="nowrap font-12 font-light-gray">可用：{{numberKeYong}}克</view>
+					<view class="nowrap font-12 font-light-gray">可用：{{numberKeYong}}枚</view>
 				</view>
 				<view class="Input-cont flex-center flex-j-between">
-					<input type="number" placeholder="请输入回购克数" v-model="number" />
+					<input type="number" placeholder="请输入回购枚数" v-model="number" />
 				</view>
 			</view>
 			<button class="btn mt-10 mb-30" @click="submit">确认回购</button>
@@ -144,7 +144,7 @@
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.dataList.forEach((item,i)=> {
-								self.dataListCopy[i] = `${item.currency_name}  (${parseFloat(item.price).toFixed(2)}/g)`
+								self.dataListCopy[i] = `${item.currency_name}  (${parseFloat(item.price).toFixed(2)}/枚)`
 							})
 							self.coinMsg = res.data.data.coin;
 						}else{

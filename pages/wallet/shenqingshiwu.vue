@@ -8,7 +8,7 @@
 			<view class="pb-20">
 				<view class="pb-10 flex-center flex-j-between">
 					<view class="one-row">申请数量</view>
-					<view class="nowrap font-12 font-light-gray">可用：{{item.balance | textFixTwo}}克</view>
+					<view class="nowrap font-12 font-light-gray">可用：{{item.balance | textFixTwo}}枚</view>
 				</view>
 				<view class="Input-cont flex-center flex-j-between">
 					<input type="number" placeholder="请输入申请数量" v-model="number" />
@@ -91,8 +91,8 @@
 					this.app._toast('申请数量不能为空');
 					return
 				};
-				if(this.number < 100) {
-					this.app._toast('申请数量最低100g');
+				if(this.number < 1) {
+					this.app._toast('申请数量最低1枚');
 					return
 				};
 				if(this.address == '请选择') {

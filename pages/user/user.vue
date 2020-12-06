@@ -25,7 +25,7 @@
 					<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
 				</view>
 				<view class="font-yellow font-20 font-w-b nowrap mt-5" v-text="eye?'******':allMoney">0</view>
-				<view class="nowrap mt-5">≈{{eye?'******':allCny}} A</view>
+				<!-- <view class="nowrap mt-5">≈{{eye?'******':allCny}} A</view> -->
 			</view>
 			<view class="bill font-yellow font-10 font-w-b" @click="app.showOpen('wallet/bill')">进入</view>
 		</view>

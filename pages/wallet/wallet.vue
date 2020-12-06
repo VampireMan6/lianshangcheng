@@ -6,7 +6,7 @@
 				<view @click.stop=""><i class="iconfont ml-10 font-20" :class="{'icon-visible':!eye,'icon-eye_protection':eye}" @click="eye=!eye"></i></view>
 			</view>
 			<view class="font-yellow font-24 font-w-b nowrap mt-10" v-text="eye?'******':allMoney">0</view>
-			<view class="nowrap mt-10 font-white" style="opacity: 0.7;">≈{{eye?'******':allCny}} A</view>
+			<!-- <view class="nowrap mt-10 font-white" style="opacity: 0.7;">≈{{eye?'******':allCny}} A</view> -->
 		</view>
 		<view class="nav-cont flex-center flex-j-around bc-white mb-25">
 			<view class="text-center" @click="app.showOpen('wallet/recharge')">

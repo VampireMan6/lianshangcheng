@@ -14,7 +14,7 @@
 					<view class="nowrap font-12 font-light-gray">可用：{{coinMsg.balance | textFixTwo}}链++</view>
 				</view>
 				<view class="Input-cont flex-center flex-j-between">
-					<input type="number" placeholder="请输入兑换克数" v-model="number" />
+					<input type="number" placeholder="请输入兑换枚数" v-model="number" />
 				</view>
 			</view>
 			<button class="btn mt-10 mb-30" @click="submit">确认兑换</button>
@@ -112,7 +112,7 @@
 						if (res.data.code == 200) {
 							self.dataList=res.data.data.list;
 							self.dataList.forEach((item,i)=> {
-								self.dataListCopy[i] = `${item.currency_name}  (${parseFloat(item.price).toFixed(2)}/g)`
+								self.dataListCopy[i] = `${item.currency_name}  (${parseFloat(item.price).toFixed(2)}/枚)`
 							})
 							self.coinMsg = res.data.data.coin;
 						}else{

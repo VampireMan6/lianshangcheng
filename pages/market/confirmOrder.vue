@@ -37,18 +37,26 @@
 								<text v-for="(ktem,kndex) in JSON.parse(jtem.spec)" :key="kndex">{{ktem.name+': '+ktem.value.title}}</text>
 							</view>
 							<view class="price-cont flex-center flex-center flex-j-between nowrap mt-20">
-								<view class="price flex-center nowrap font-14 font-w-b">
-									<text class="font-yellow nowrap" v-text="jtem.shop_price">100.0000</text>
-									<text class="one-row ml-5" v-text="jtem.coin_name">QSC</text>
+								<view class="price nowrap font-14 font-w-b">
+									<view class="">
+										<text class="font-yellow nowrap" v-text="jtem.shop_price">100.0000</text>
+										<text class="one-row ml-5" v-text="jtem.coin_name">QSC</text>
+									</view>
+									<view v-if="jtem.ljj_amount>0">
+										<text>或</text>
+										<text class="font-yellow nowrap ml-5">{{parseFloat(jtem.ljj_amount).toFixed(2)}}</text>
+										<text class="one-row ml-5">链++</text>
+									</view>
 								</view>
 								<view class="handle flex-center nowrap">
-									<view class="one-row" @click="jtem.buy_num=(jtem.buy_num==1?1:Number(jtem.buy_num)-1);modifyNumber(jtem.cart_id,jtem.buy_num);">
+									<input style="margin-left:40rpx" type="number" v-model="jtem.buy_num" @input='modifyNumber(jtem.cart_id,jtem.buy_num)' placeholder="请输入购买数量"/>
+									<!-- <view class="one-row" @click="jtem.buy_num=(jtem.buy_num==1?1:Number(jtem.buy_num)-1);modifyNumber(jtem.cart_id,jtem.buy_num);">
 										<image src="../../static/img/reduce.png"></image>
 									</view>
 									<text class="value nowrap lh-20" v-text="jtem.buy_num">1</text>
 									<view class="one-row" @click="jtem.buy_num=(Number(jtem.buy_num)+1);modifyNumber(jtem.cart_id,jtem.buy_num);">
 										<image src="../../static/img/add.png"></image>
-									</view>
+									</view> -->
 								</view>
 							</view>
 						</view>
@@ -71,8 +79,14 @@
 			</view>
 		</view>
 		<view class="flex-center flex-j-end nowrap font-12 pt-10 pb-10 pl-15 pr-15">商品总金额：<text class="font-w-b font-yellow" v-text="price">110.0000 QSC</text></view>
+		<view v-if="isljj_total_amount" class="flex-center flex-j-end nowrap font-12 pt-10 pb-10 pl-15 pr-15"> 
+			<text class="font-w-b font-yellow">或 链++: {{parseFloat(ljj_total_amount).toFixed(2)}}</text>
+		</view>
 		<view class="bottom-cont flex-center flex-j-between">
-			<view class="flex-center font-14 font-light-gray nowrap">合计：<text class="font-w-b font-yellow" v-text="price+'， 运费：'+freight+' 链++'">100.0000 QSC</text></view>
+			<view class=" font-14 font-light-gray nowrap">
+				<view class="font-w-b font-yellow"><text style="display: inline-block;width:100rpx">合计：</text> {{price}}</view>
+				<view v-if="isljj_total_amount" class="font-w-b font-yellow" style="margin-left: 100rpx" >或 链++:{{parseFloat(ljj_total_amount).toFixed(2)}}</view>
+			</view>
 			<button class="btn one-row text-center" :disabled="disabled" @click="gobuy()">提交订单</button>
 		</view>
 	</view>
@@ -96,17 +110,20 @@
 				buy_data:"",
 				coinName:"",
 				price:"",
+				ljj_total_amount: 0,
+				isljj_total_amount: false,
 				disabled:false,
 				freight:"0",
+				numberShop: 1
 			}
 		},
 		onLoad(e) {
 			var self=this;
 			self.type=e.type;
-			if(e.type=="cart"){
+			if(e.type=="cart"){ //购物车
 				self.id=e.id;
 				self.getCart();
-			}else{
+			}else{ // 立即购买
 				e.send=JSON.parse(e.send);
 				self.buy_data=e.send;
 				self.getBuy();
@@ -139,7 +156,7 @@
 					send.sku_id=self.buy_data.sku_id;//self.buy_data.
 					send.goods_id=self.list[0].goods[0].id;//self.buy_data.
 				};
-				console.log(JSON.stringify(send));
+				// console.log(JSON.stringify(send));
 				// return
 				if(self.disabled){
 					return;
@@ -152,7 +169,7 @@
 					method: "post",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						console.log(JSON.stringify(res));
+						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
@@ -223,12 +240,18 @@
 						if (res.data.code == 200) {
 							self.list=res.data.data.skus;
 							self.freight=res.data.data.freight;
+							self.ljj_total_amount= parseFloat(res.data.data.ljj_total_amount);
+							if(self.ljj_total_amount > 0) {
+								self.isljj_total_amount = true;
+							}else {
+								self.isljj_total_amount = false;
+							};
 							self.getName();
 						}else{
 							self.app._toast(res.data.message);
 							setTimeout(function(){
 								self.app.goBack();
-							},500);
+							},2000);
 						};
 					},
 					fail: (res) => {console.log(JSON.stringify(res));},
@@ -245,12 +268,18 @@
 					method: "post",
 					header: {Authorization: config.getToken()},
 					success: res => {
-						console.log(JSON.stringify(res));
+						// console.log(JSON.stringify(res));
 						uni.hideNavigationBarLoading();
 						config.api_status(res);
 						if (res.data.code == 200) {
 							self.list=res.data.data.skus;
 							self.freight=res.data.data.freight;
+							self.ljj_total_amount = res.data.data.ljj_total_amount;
+							if(self.ljj_total_amount > 0) {
+								self.isljj_total_amount = true;
+							}else {
+								self.isljj_total_amount = false;
+							};
 							self.getName();
 						}else{
 							self.app._toast(res.data.message);
@@ -262,6 +291,9 @@
 					fail: (res) => {console.log(JSON.stringify(res));},
 					complete: (res) => {}
 				});
+			},
+			inputEven(id,number) {
+				console.log(id,number);
 			},
 			modifyNumber:function(id,num){
 				var self=this;
@@ -304,6 +336,7 @@
 						var str={
 							coin:jtem.coin_name,
 							all:0,
+							alls:0,
 						};
 						name[jtem.coin_name]=str;
 					})
@@ -316,21 +349,27 @@
 				self.price="";
 				var name=self.coinName;
 				let data=[];
+				let datas=[];
 				for(let s in name){
 					name[s].all=0;
+					name[s].alls=0;
 				};
 				for(let i in name){
 					self.list.forEach(function(item){
 						item.goods.forEach(function(jtem){
 							if(jtem.coin_name==i){
 								name[i].all += Number(self.app._accMul(jtem.shop_price,jtem.buy_num));
+								name[i].alls += Number(self.app._accMul(jtem.ljj_amount,jtem.buy_num));
 							};
 						});
 					});
 					let str=i+':'+name[i].all;
+					let strs=i+':'+name[i].alls;
 					data.push( str );
+					datas.push( strs );
 				}
 				self.price=data.toString();
+				self.ljj_total_amount=datas.toString().slice(4).toFixed(2);
 			},
 		}
 	}
